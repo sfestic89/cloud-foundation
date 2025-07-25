@@ -25,7 +25,7 @@ jobs:
       uses: google-github-actions/auth@v2.0.0  
       with:
         workload_identity_provider: "projects/726010183755/locations/global/workloadIdentityPools/ccoi-github-pool/providers/github"
-        service_account: "ccoe-terraform@ccoe-seed-project.iam.gserviceaccount.com"
+        service_account: "ccoegithub-terraform@ccoe-seed-project.iam.gserviceaccount.com"
 
 
           
