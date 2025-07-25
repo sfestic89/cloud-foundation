@@ -67,7 +67,7 @@ module "wif" {
   provider_id           = "github"
   provider_display_name = "GitHub Actions"
   issuer_uri            = "https://token.actions.githubusercontent.com"
-  allowed_audiences     = ["https://github.com/sfestic89/cloud-foundaiton"]
+  allowed_audiences     = ["https://github.com/sfestic89/cloud-foundation"]
 }
 
 module "github_impersonation" {
