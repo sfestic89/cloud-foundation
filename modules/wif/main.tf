@@ -24,20 +24,3 @@ resource "google_iam_workload_identity_pool_provider" "github_provider" {
     issuer_uri        = var.issuer_uri
   }
 }
-/**
-resource "google_service_account" "service_account" {
-  project      = var.project_id
-  account_id   = var.service_account_name
-  display_name = "Service Account for GitHub Deployments"
-}
-
-resource "google_service_account_iam_binding" "allow_github" {
-  service_account_id = google_service_account.service_account.id
-  role               = "roles/iam.workloadIdentityUser"
-
-  members = [
-    "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github_pool.name}/attribute.repository/${var.github_organisation}/${var.github_repository}",
-    "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github_pool.name}/attribute.repository_owner/${var.github_organisation}"
-  ]
-}
-**/

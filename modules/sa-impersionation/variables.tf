@@ -1,34 +1,60 @@
 variable "target_project" {
-  description = "Target project to create the service account in"
   type        = string
+  description = "Target project where the service account exists"
 }
 
 variable "service_account_id" {
-  description = "Service account ID (without domain)"
   type        = string
-}
-
-variable "service_account_email" {
-  description = "Service account email (with domain)"
-  type        = string
+  description = "The service account ID to create in the target project"
 }
 
 variable "github_organisation" {
-  description = "GitHub organization name"
   type        = string
+  description = "GitHub organization"
 }
 
 variable "github_repository" {
-  description = "GitHub repository name"
   type        = string
+  description = "GitHub repository"
 }
 
 variable "central_project_number" {
-  description = "Project number of the WIF hosting project"
   type        = string
+  description = "Project number of the central WIF project"
 }
 
 variable "pool_id" {
-  description = "Workload Identity Pool ID"
   type        = string
+  description = "Workload Identity Pool ID in central project"
+}
+
+variable "github_pool_name" {
+  description = "The name of the GitHub Workload Identity Pool"
+  type        = string
+}
+
+variable "project_id" {
+  description = "Project to create the service account in"
+  type        = string
+}
+
+variable "account_id" {
+  description = "Service account ID (no domain)"
+  type        = string
+}
+
+variable "display_name" {
+  description = "Display name for the service account"
+  type        = string
+}
+
+variable "org_id" {
+  description = "The GCP organization ID for binding org-level roles"
+  type        = string
+}
+
+variable "org_roles" {
+  description = "List of org-level roles to bind to the service account"
+  type        = list(string)
+  default     = []
 }

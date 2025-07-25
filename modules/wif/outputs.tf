@@ -1,3 +1,5 @@
+# Identity pool
+
 output "pool_id" {
   description = "Identifier for the pool"
   value       = google_iam_workload_identity_pool.github_pool.id

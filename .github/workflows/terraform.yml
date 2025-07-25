@@ -5,27 +5,40 @@ on:
 
 jobs:
   terraform:
+    name: 'Terraform'
     runs-on: ubuntu-latest
-
+    
     permissions:
-      id-token: write
       contents: read
+      id-token: 'write'
+
+    defaults:
+      run:
+        shell: bash
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
 
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          workload_identity_provider: "projects/726010183755/locations/global/workloadIdentityPools/ccoi-github-pool/providers/github"
-          service_account: "ccoe-terraform@ccoe-seed-project.iam.gserviceaccount.com"
+    - id: auth
+      uses: google-github-actions/auth@v2.0.0  
+      with:
+        workload_identity_provider: "projects/726010183755/locations/global/workloadIdentityPools/ccoi-github-pool/providers/github"
+        service_account: "ccoe-terraform@ccoe-seed-project.iam.gserviceaccount.com"
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
 
-      - name: Terraform Init
-        run: terraform init
+          
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-      - name: Terraform Plan
-        run: terraform plan
+
+    - name: Terraform Init
+      run: terraform init
+
+
+    # Generates an execution plan for Terraform
+    - name: Terraform Plan
+      run: terraform plan -input=false

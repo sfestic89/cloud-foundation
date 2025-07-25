@@ -87,19 +87,3 @@ variable "issuer_uri" {
   type        = string
   description = "OIDC issuer URL (e.g., https://token.actions.githubusercontent.com)"
 }
-/**
-variable "service_account_name" {
-  type        = string
-  description = "Service Account ID (without domain)"
-}
-
-variable "github_organisation" {
-  type        = string
-  description = "GitHub organization or username that owns the repository"
-}
-
-variable "github_repository" {
-  type        = string
-  description = "GitHub repository name (e.g., my-repo)"
-}
-**/

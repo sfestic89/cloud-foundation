@@ -23,7 +23,8 @@ module "projects" {
       apis = [
         "cloudresourcemanager.googleapis.com",
         "iam.googleapis.com",
-        "storage.googleapis.com"
+        "storage.googleapis.com",
+        "iamcredentials.googleapis.com"
       ]
     },
     {
@@ -54,34 +55,57 @@ module "ccoe_terraform_sa" {
     "roles/resourcemanager.projectCreator",
     "roles/iam.serviceAccountAdmin",
     "roles/iam.workloadIdentityPoolAdmin",
-    "roles/iam.workloadIdentityPoolViewer"
+    "roles/iam.workloadIdentityPoolViewer",
+    "roles/storage.admin"
+  ]
+}
+
+module "impersonation" {
+  source                 = "../modules/sa-impersionation"
+  target_project         = "ccoe-seed-project"
+  project_id             = module.projects.project_ids["ccoe-seed-project"]
+  display_name           = "Terraform Github Infra SA"
+  account_id             = "ccoegithub-terraform"
+  service_account_id     = "github-deployer"
+  github_organisation    = "sfestic89"
+  github_repository      = "cloud-foundation"
+  central_project_number = "726010183755"
+  pool_id                = module.wif.pool_id
+  github_pool_name       = module.wif.pool_name
+
+  org_id = "718865262377" # Replace with your actual org ID
+  org_roles = [
+    "roles/resourcemanager.folderCreator",
+    "roles/resourcemanager.projectCreator",
+    "roles/iam.serviceAccountAdmin",
+    "roles/iam.workloadIdentityPoolAdmin",
+    "roles/iam.workloadIdentityPoolViewer",
+    "roles/storage.admin"
   ]
 }
 
 module "wif" {
-  source     = "../modules/wif"
-  project_id = module.projects.project_ids["ccoi-wif-project"]
+  source = "../modules/wif"
 
-  pool_id               = "ccoi-github-pool"
-  pool_display_name     = "CCOI GitHub Pool"
-  provider_id           = "github"
-  provider_display_name = "GitHub Actions"
-  issuer_uri            = "https://token.actions.githubusercontent.com"
-  allowed_audiences     = ["https://github.com/sfestic89/cloud-foundation"]
-}
+  project_id        = "ccoi-wif-project"
+  pool_id           = "cloud-infra-github-pool"
+  pool_display_name = "GitHub Workload Identity Pool"
+  pool_description  = "Federation pool for GitHub Actions"
+  pool_disabled     = false
 
-module "github_impersonation" {
-  source = "../modules/sa-impersionation"
+  provider_id           = "cloud-infra-github-pool"
+  provider_display_name = "GitHub OIDC Provider"
+  provider_description  = "Provider for GitHub OIDC federation"
+  provider_disabled     = false
 
-  target_project         = module.projects.project_ids["ccoe-seed-project"]
-  service_account_id     = module.ccoe_terraform_sa.service_account_id
-  service_account_email  = module.ccoe_terraform_sa.service_account_email
-  github_organisation    = "718865262377"
-  github_repository      = "sfestic89"
-  central_project_number = module.projects.project_numbers["ccoi-wif-project"]
-  pool_id                = "ccoi-github-pool"
-
-  depends_on = [module.wif]
+  issuer_uri        = "https://token.actions.githubusercontent.com"
+  allowed_audiences = ["https://github.com/sfestic89/cloud-foundation"]
+  attribute_mapping = {
+    "google.subject"             = "assertion.sub"
+    "attribute.repository"       = "assertion.repository"
+    "attribute.repository_owner" = "assertion.repository_owner"
+  }
+  attribute_condition = "attribute.repository == assertion.repository && attribute.repository_owner == assertion.repository_owner"
 }
 
 module "state_bucket" {
