@@ -26,6 +26,7 @@ jobs:
       with:
         workload_identity_provider: "projects/726010183755/locations/global/workloadIdentityPools/cloud-infra-github-pool/providers/cloud-infra-github-pool"
         service_account: "ccoegithub-terraform@ccoe-seed-project.iam.gserviceaccount.com"
+        audience: "https://github.com/sfestic89/cloud-foundation"
 
 
           
