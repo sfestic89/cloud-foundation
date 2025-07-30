@@ -1,3 +1,17 @@
+locals {
+  project_api_map = {
+    for pair in flatten([
+      for p in var.projects : [
+        for api in p.apis : {
+          key        = "${p.project_id}-${api}"
+          project_id = p.project_id
+          api        = api
+        }
+      ]
+    ]) : pair.key => pair
+  }
+}
+
 resource "google_project" "this" {
   for_each = { for p in var.projects : p.project_id => p }
 
@@ -7,18 +21,9 @@ resource "google_project" "this" {
   billing_account = each.value.billing_account
   labels          = each.value.labels
 }
+
 resource "google_project_service" "gcp_services" {
-  for_each = {
-    for pair in flatten([
-      for project in var.projects : [
-        for api in var.gcp_service_list : {
-          key        = "${project.project_id}-${api}"
-          project_id = project.project_id
-          api        = api
-        }
-      ]
-    ]) : pair.key => pair
-  }
+  for_each = local.project_api_map
 
   project = each.value.project_id
   service = each.value.api

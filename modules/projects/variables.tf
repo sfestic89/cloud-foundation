@@ -5,12 +5,6 @@ variable "projects" {
     folder_id       = string
     billing_account = string
     labels          = map(string)
+    apis            = list(string)
   }))
-}
-variable "gcp_service_list" {
-  type = list(string)
-  default = [
-    "compute.googleapis.com",
-    "iam.googleapis.com"
-  ]
 }
