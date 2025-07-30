@@ -4,6 +4,7 @@ module "bootstrap_folders" {
   folder_names = [
     "bootstrap",
     "common",
+    "rearc"
   ]
 }
 
@@ -44,6 +45,29 @@ module "projects" {
         "cloudresourcemanager.googleapis.com",
         "iamcredentials.googleapis.com",
         "iam.googleapis.com"
+      ]
+    },
+    {
+      project_id      = "rearc-quest-project"
+      name            = "Rearc Quest Project"
+      folder_id       = module.bootstrap_folders.folder_ids["rearc"]
+      billing_account = "01BAAE-738DCF-3581B5"
+      labels = {
+        environment = "demo"
+        owner       = "sfestic"
+      }
+      apis = [
+        "serviceusage.googleapis.com",
+        "compute.googleapis.com",
+        "storage.googleapis.com",
+        "cloudresourcemanager.googleapis.com",
+        "iamcredentials.googleapis.com",
+        "iam.googleapis.com",
+        "artifactregistry.googleapis.com",
+        "cloudbuild.googleapis.com",
+        "logging.googleapis.com",
+        "monitoring.googleapis.com",
+        "run.googleapis.com"
       ]
     }
   ]
