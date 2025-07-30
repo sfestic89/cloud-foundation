@@ -89,7 +89,9 @@ module "impersonation" {
     "roles/iam.serviceAccountAdmin",
     "roles/iam.workloadIdentityPoolAdmin",
     "roles/iam.workloadIdentityPoolViewer",
-    "roles/storage.admin"
+    "roles/storage.admin",
+    "roles/iam.securityAdmin",
+    "roles/iam.organizationRoleAdmin"
   ]
 }
 
