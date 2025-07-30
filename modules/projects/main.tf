@@ -27,4 +27,6 @@ resource "google_project_service" "gcp_services" {
 
   project = each.value.project_id
   service = each.value.api
+
+  depends_on = [ google_project.this ]
 }
