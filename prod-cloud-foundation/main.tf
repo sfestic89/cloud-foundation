@@ -21,10 +21,11 @@ module "projects" {
         owner       = "terraform"
       }
       apis = [
-        "cloudresourcemanager.googleapis.com",
-        "iam.googleapis.com",
+        "compute.googleapis.com",
         "storage.googleapis.com",
-        "iamcredentials.googleapis.com"
+        "cloudresourcemanager.googleapis.com",
+        "iamcredentials.googleapis.com",
+        "iam.googleapis.com"
       ]
     },
     {
@@ -36,8 +37,11 @@ module "projects" {
         env = "common"
       }
       apis = [
-        "iam.googleapis.com",
-        "sts.googleapis.com"
+        "compute.googleapis.com",
+        "storage.googleapis.com",
+        "cloudresourcemanager.googleapis.com",
+        "iamcredentials.googleapis.com",
+        "iam.googleapis.com"
       ]
     }
   ]

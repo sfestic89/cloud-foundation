@@ -1,5 +1,5 @@
 resource "google_storage_bucket" "my_bucket_set" {
-  project       = var.project_id
+  project = var.project_id
 
   for_each      = toset(var.bucket_name_set)
   name          = each.value

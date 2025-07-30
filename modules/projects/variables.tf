@@ -1,11 +1,16 @@
 variable "projects" {
-  description = "List of projects to create"
   type = list(object({
-    project_id     = string
-    name           = string
-    folder_id      = string
+    project_id      = string
+    name            = string
+    folder_id       = string
     billing_account = string
-    labels         = map(string)
-    apis           = list(string)
+    labels          = map(string)
   }))
+}
+variable "gcp_service_list" {
+  type = list(string)
+  default = [
+    "compute.googleapis.com",
+    "iam.googleapis.com"
+  ]
 }
