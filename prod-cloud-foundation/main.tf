@@ -21,6 +21,7 @@ module "projects" {
         owner       = "terraform"
       }
       apis = [
+        "serviceusage.googleapis.com",
         "compute.googleapis.com",
         "storage.googleapis.com",
         "cloudresourcemanager.googleapis.com",
@@ -37,6 +38,7 @@ module "projects" {
         env = "common"
       }
       apis = [
+        "serviceusage.googleapis.com",
         "compute.googleapis.com",
         "storage.googleapis.com",
         "cloudresourcemanager.googleapis.com",
@@ -60,7 +62,10 @@ module "ccoe_terraform_sa" {
     "roles/iam.serviceAccountAdmin",
     "roles/iam.workloadIdentityPoolAdmin",
     "roles/iam.workloadIdentityPoolViewer",
-    "roles/storage.admin"
+    "roles/storage.admin",
+    "roles/iam.securityAdmin",
+    "roles/iam.organizationRoleAdmin"
+
   ]
 }
 
