@@ -58,3 +58,8 @@ variable "org_roles" {
   type        = list(string)
   default     = []
 }
+variable "sa_roles" {
+  description = "List of IAM roles to bind to the service account itself"
+  type        = list(string)
+  default     = []
+}

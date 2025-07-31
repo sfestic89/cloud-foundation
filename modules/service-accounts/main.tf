@@ -11,3 +11,11 @@ resource "google_organization_iam_member" "org_bindings" {
   role   = each.key
   member = "serviceAccount:${google_service_account.this.email}"
 }
+
+resource "google_service_account_iam_member" "sa_bindings" {
+  for_each = toset(var.sa_roles)
+
+  service_account_id = google_service_account.this.name
+  role               = each.key
+  member             = "serviceAccount:${google_service_account.this.email}"
+}

@@ -120,6 +120,10 @@ module "impersonation" {
     "roles/iam.organizationRoleAdmin",
     "roles/billing.user"
   ]
+  sa_roles = [
+    "roles/iam.serviceAccountUser",
+    "roles/iam.serviceAccountTokenCreator"
+  ]
 }
 
 module "wif" {
