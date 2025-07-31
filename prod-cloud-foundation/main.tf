@@ -23,6 +23,7 @@ module "projects" {
       }
       apis = [
         "serviceusage.googleapis.com",
+        "cloudbilling.googleapis.com",
         "compute.googleapis.com",
         "storage.googleapis.com",
         "cloudresourcemanager.googleapis.com",
@@ -40,6 +41,7 @@ module "projects" {
       }
       apis = [
         "serviceusage.googleapis.com",
+        "cloudbilling.googleapis.com",
         "compute.googleapis.com",
         "storage.googleapis.com",
         "cloudresourcemanager.googleapis.com",
