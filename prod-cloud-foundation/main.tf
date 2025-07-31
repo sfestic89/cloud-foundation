@@ -49,6 +49,7 @@ module "projects" {
         "iam.googleapis.com"
       ]
     },
+    /**
     {
       project_id      = "rearc-quest-project"
       name            = "Rearc Quest Project"
@@ -72,6 +73,7 @@ module "projects" {
         "run.googleapis.com"
       ]
     }
+    **/
   ]
 }
 
@@ -90,8 +92,8 @@ module "ccoe_terraform_sa" {
     "roles/iam.workloadIdentityPoolViewer",
     "roles/storage.admin",
     "roles/iam.securityAdmin",
-    "roles/iam.organizationRoleAdmin"
-
+    "roles/iam.organizationRoleAdmin",
+    "roles/billing.user"
   ]
 }
 
@@ -117,7 +119,8 @@ module "impersonation" {
     "roles/iam.workloadIdentityPoolViewer",
     "roles/storage.admin",
     "roles/iam.securityAdmin",
-    "roles/iam.organizationRoleAdmin"
+    "roles/iam.organizationRoleAdmin",
+    "roles/billing.user"
   ]
 }
 
