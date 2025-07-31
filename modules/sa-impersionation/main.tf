@@ -16,9 +16,9 @@ resource "google_organization_iam_member" "org_bindings" {
 resource "google_service_account_iam_member" "sa_bindings" {
   for_each = toset(var.sa_roles)
 
-  service_account_id = google_service_account.this.name
+  service_account_id = google_service_account.service_account.name
   role               = each.key
-  member             = "serviceAccount:${google_service_account.this.email}"
+  member             = "serviceAccount:${google_service_account.service_account.email}"
 }
 
 # Apply IAM binding for the Workload Identity User
