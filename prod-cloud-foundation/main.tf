@@ -162,8 +162,8 @@ module "impersonation_rearc" {
   github_repository      = "rearc-quest"  # 🔹 different repo
 
   central_project_number = "726010183755"
-  pool_id                = module.wif_rearc.pool_id  # or your central WIF pool
-  github_pool_name       = module.wif_rearc.pool_name  # workload identity pool name for rearc repo
+  pool_id                = module.rearc_wif_provider.pool_id  # or your central WIF pool
+  github_pool_name       = module.rearc_wif_provider.pool_name  # workload identity pool name for rearc repo
 
   org_id = "718865262377"  # use if needed, or leave empty if no org-level roles
 
