@@ -118,7 +118,13 @@ module "impersonation" {
     "roles/storage.admin",
     "roles/iam.securityAdmin",
     "roles/iam.organizationRoleAdmin",
-    "roles/billing.user"
+    "roles/billing.user",
+    "roles/artifactregistry.admin",
+    "roles/cloudbuild.editor",
+    "roles/run.admin",
+    "roles/iam.serviceAccountAdmin",
+    "roles/iam.serviceAccountUser",
+    "roles/iam.roleAdmin"
   ]
 }
 
