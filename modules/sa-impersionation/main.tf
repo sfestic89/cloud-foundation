@@ -21,6 +21,13 @@ resource "google_service_account_iam_member" "sa_bindings" {
   member             = "serviceAccount:${google_service_account.service_account.email}"
 }
 
+resource "google_service_account_iam_member" "impersonator_bindings" {
+  for_each = toset(var.impersonators)
+
+  service_account_id = google_service_account.service_account.name
+  role               = "roles/iam.serviceAccountTokenCreator"
+  member             = "serviceAccount:${each.value}"
+}
 # Apply IAM binding for the Workload Identity User
 resource "google_service_account_iam_binding" "wif_binding" {
   service_account_id = "projects/${var.target_project}/serviceAccounts/${google_service_account.service_account.account_id}@${var.target_project}.iam.gserviceaccount.com"
