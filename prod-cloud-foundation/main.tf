@@ -210,7 +210,7 @@ module "rearc_quest_prj_iam" {
   member     = "serviceAccount:ccoegithub-terraform@ccoe-seed-project.iam.gserviceaccount.com"
   roles = [
     "roles/artifactregistry.admin",
-    "roles/cloudbuild.builds.editor",
+    "roles/cloudbuild.editor",
     "roles/run.admin",
     "roles/iam.serviceAccountTokenCreator",
     "roles/iam.serviceAccountUser"
