@@ -13,6 +13,14 @@ resource "google_organization_iam_member" "org_bindings" {
   member = "serviceAccount:${google_service_account.service_account.email}"
 }
 
+resource "google_service_account_iam_member" "sa_bindings" {
+  for_each = toset(var.sa_roles)
+
+  service_account_id = google_service_account.this.name
+  role               = each.key
+  member             = "serviceAccount:${google_service_account.this.email}"
+}
+
 # Apply IAM binding for the Workload Identity User
 resource "google_service_account_iam_binding" "wif_binding" {
   service_account_id = "projects/${var.target_project}/serviceAccounts/${google_service_account.service_account.account_id}@${var.target_project}.iam.gserviceaccount.com"
