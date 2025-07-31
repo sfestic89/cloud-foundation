@@ -150,6 +150,31 @@ module "wif" {
   attribute_condition = "attribute.repository == assertion.repository && attribute.repository_owner == assertion.repository_owner"
 }
 
+module "impersonation_rearc" {
+  source                 = "../modules/sa-impersionation"
+  target_project         = "rearc-quest-project"  # 🔹 target is rearc project
+  project_id             = module.projects.project_ids["rearc-quest-project"]  # 🔹 rearc project id
+  display_name           = "GitHub Deployer Rearc Quest"
+  account_id             = "rearc-deployer"  # This creates github-deployer@rearc-quest-project
+  service_account_id     = "rearc-gh-deployer"
+
+  github_organisation    = "sfestic89"
+  github_repository      = "rearc-quest"  # 🔹 different repo
+
+  central_project_number = "726010183755"
+  pool_id                = module.wif_rearc.pool_id  # or your central WIF pool
+  github_pool_name       = module.wif_rearc.pool_name  # workload identity pool name for rearc repo
+
+  org_id = "718865262377"  # use if needed, or leave empty if no org-level roles
+
+  org_roles = []  # Rearc SA probably doesn't need org-level roles
+  sa_roles = [
+    "roles/artifactregistry.admin",
+    "roles/cloudbuild.builds.editor",
+    "roles/run.admin",
+    "roles/iam.serviceAccountUser"
+  ]
+}
 module "rearc_wif_provider" {
   source = "../modules/wif"
 
