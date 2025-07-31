@@ -146,23 +146,24 @@ module "wif" {
   attribute_condition = "attribute.repository == assertion.repository && attribute.repository_owner == assertion.repository_owner"
 }
 
-module "wif_provider_rearc" {
-  source = "../modules/wif"
+module "rearc_wif_provider" {
+  source = "../modules/wif_provider"
 
-  project_id        = "ccoi-wif-project"
-  pool_id           = module.wif.pool_id
-  provider_id       = "rearc-quest-provider"
-  provider_disabled = false
-  allowed_audiences = ["https://github.com/sfestic89/rearc-quest"]
+  project_id                = "ccoi-wif-project"
+  pool_id                   = "rearc-quest-wif-pool"
+  provider_id               = "github-provider"
+  provider_display_name     = "GitHub OIDC Provider for Rearc Quest"
+  provider_description      = "OIDC provider for rearc-quest repo"
+  provider_disabled         = false
+  issuer_uri                = "https://token.actions.githubusercontent.com"
+  allowed_audiences         = ["https://github.com/sfestic89/rearc-quest"]
   attribute_mapping = {
     "google.subject"             = "assertion.sub"
     "attribute.repository"       = "assertion.repository"
     "attribute.repository_owner" = "assertion.repository_owner"
   }
-  attribute_condition = "attribute.repository == assertion.repository && attribute.repository_owner == assertion.repository_owner"
-  issuer_uri          = "https://token.actions.githubusercontent.com"
+  attribute_condition = "attribute.repository == 'sfestic89/rearc-quest'"
 }
-
 module "state_bucket" {
   source = "../modules/cloud-storage" # adjust the path
 
