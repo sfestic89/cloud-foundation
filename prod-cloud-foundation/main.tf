@@ -152,7 +152,7 @@ module "rearc_wif_provider" {
   project_id                = "ccoi-wif-project"
   pool_id                   = "rearc-quest-wif-pool"
   provider_id               = "github-provider"
-  provider_display_name     = "GitHub OIDC Provider for Rearc Quest"
+  provider_display_name     = "GitHub Rearc Quest Provider"
   provider_description      = "OIDC provider for rearc-quest repo"
   provider_disabled         = false
   issuer_uri                = "https://token.actions.githubusercontent.com"
