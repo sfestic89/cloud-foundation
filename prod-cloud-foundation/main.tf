@@ -49,7 +49,6 @@ module "projects" {
         "iam.googleapis.com"
       ]
     },
-    /**
     {
       project_id      = "rearc-quest-project"
       name            = "Rearc Quest Project"
@@ -73,7 +72,6 @@ module "projects" {
         "run.googleapis.com"
       ]
     }
-    **/
   ]
 }
 
