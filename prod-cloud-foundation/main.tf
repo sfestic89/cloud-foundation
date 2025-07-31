@@ -146,6 +146,24 @@ module "wif" {
   attribute_condition = "attribute.repository == assertion.repository && attribute.repository_owner == assertion.repository_owner"
 }
 
+module "rearc_wif_provider" {
+  source = "../modules/wif"
+
+  project_id                = "ccoi-wif-project"
+  pool_id                   = "rearc-quest-wif-pool"
+  provider_id               = "github-provider"
+  provider_display_name     = "GitHub OIDC Provider for Rearc Quest"
+  provider_description      = "OIDC provider for rearc-quest repo"
+  provider_disabled         = false
+  issuer_uri                = "https://token.actions.githubusercontent.com"
+  allowed_audiences         = ["https://github.com/sfestic89/rearc-quest"]
+  attribute_mapping = {
+    "google.subject"             = "assertion.sub"
+    "attribute.repository"       = "assertion.repository"
+    "attribute.repository_owner" = "assertion.repository_owner"
+  }
+  attribute_condition = "attribute.repository == 'sfestic89/rearc-quest'"
+}
 module "state_bucket" {
   source = "../modules/cloud-storage" # adjust the path
 
@@ -160,7 +178,7 @@ module "rearc_quest_prj_iam" {
 
   project_id = "rearc-quest-project"
   member     = "serviceAccount:ccoegithub-terraform@ccoe-seed-project.iam.gserviceaccount.com"
-  roles      = [
+  roles = [
     "roles/artifactregistry.admin",
     "roles/cloudbuild.builds.editor",
     "roles/run.admin",
