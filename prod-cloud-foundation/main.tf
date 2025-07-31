@@ -182,6 +182,7 @@ module "rearc_quest_prj_iam" {
     "roles/artifactregistry.admin",
     "roles/cloudbuild.builds.editor",
     "roles/run.admin",
+    "roles/iam.serviceAccountTokenCreator",
     "roles/iam.serviceAccountUser"
   ]
 }
