@@ -172,6 +172,9 @@ module "impersonation_rearc" {
     "roles/iam.serviceAccountUser",
     "roles/iam.serviceAccountTokenCreator"
   ]
+  impersonators = [
+  "ccoegithub-terraform@ccoe-seed-project.iam.gserviceaccount.com"
+]
 }
 module "rearc_wif_provider" {
   source = "../modules/wif"

@@ -63,3 +63,9 @@ variable "sa_roles" {
   type        = list(string)
   default     = []
 }
+
+variable "impersonators" {
+  description = "List of service accounts that can impersonate this service account"
+  type        = list(string)
+  default     = []
+}
