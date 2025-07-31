@@ -118,13 +118,7 @@ module "impersonation" {
     "roles/storage.admin",
     "roles/iam.securityAdmin",
     "roles/iam.organizationRoleAdmin",
-    "roles/billing.user",
-    "roles/artifactregistry.admin",
-    "roles/cloudbuild.editor",
-    "roles/run.admin",
-    "roles/iam.serviceAccountAdmin",
-    "roles/iam.serviceAccountUser",
-    "roles/iam.roleAdmin"
+    "roles/billing.user"
   ]
 }
 
@@ -159,4 +153,17 @@ module "state_bucket" {
   bucket_name_set = ["tf-state-ccoe-seed"]
   bucket_location = "EU"
   storage_class   = "STANDARD"
+}
+
+module "rearc_quest_prj_iam" {
+  source = "../modules/iam"
+
+  project_id = "rearc-quest-project"
+  member     = "serviceAccount:ccoegithub-terraform@ccoe-seed-project.iam.gserviceaccount.com"
+  roles      = [
+    "roles/artifactregistry.admin",
+    "roles/cloudbuild.editor",
+    "roles/run.admin",
+    "roles/iam.serviceAccountUser"
+  ]
 }
