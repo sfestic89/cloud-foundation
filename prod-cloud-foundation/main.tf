@@ -169,10 +169,8 @@ module "impersonation_rearc" {
 
   org_roles = []  # Rearc SA probably doesn't need org-level roles
   sa_roles = [
-    "roles/artifactregistry.admin",
-    "roles/cloudbuild.builds.editor",
-    "roles/run.admin",
-    "roles/iam.serviceAccountUser"
+    "roles/iam.serviceAccountUser",
+    "roles/iam.serviceAccountTokenCreator"
   ]
 }
 module "rearc_wif_provider" {
