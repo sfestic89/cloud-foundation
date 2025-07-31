@@ -146,6 +146,24 @@ module "wif" {
   attribute_condition = "attribute.repository == assertion.repository && attribute.repository_owner == assertion.repository_owner"
 }
 
+module "wif_provider_rearc" {
+  source = "../modules/wif_provider"
+
+  project_id        = "ccoi-wif-project"
+  pool_id           = module.wif_pool.pool_id
+  provider_id       = "rearc-quest-provider"
+  display_name      = "Rearc Quest Repo"
+  description       = "OIDC provider for rearc-quest"
+  allowed_audiences = ["https://github.com/sfestic89/rearc-quest"]
+  attribute_mapping = {
+    "google.subject"             = "assertion.sub"
+    "attribute.repository"       = "assertion.repository"
+    "attribute.repository_owner" = "assertion.repository_owner"
+  }
+  attribute_condition = "attribute.repository == assertion.repository && attribute.repository_owner == assertion.repository_owner"
+  issuer_uri          = "https://token.actions.githubusercontent.com"
+}
+
 module "state_bucket" {
   source = "../modules/cloud-storage" # adjust the path
 
