@@ -156,7 +156,7 @@ module "state_bucket" {
 }
 
 module "rearc_quest_prj_iam" {
-  source = "./modules/iam"
+  source = "../modules/iam"
 
   project_id = "rearc-quest-project"
   member     = "serviceAccount:ccoegithub-terraform@ccoe-seed-project.iam.gserviceaccount.com"
