@@ -150,7 +150,7 @@ module "wif_provider_rearc" {
   source = "../modules/wif"
 
   project_id        = "ccoi-wif-project"
-  pool_id           = module.wif_pool.pool_id
+  pool_id           = module.wif.pool_id
   provider_id       = "rearc-quest-provider"
   provider_disabled = false
   allowed_audiences = ["https://github.com/sfestic89/rearc-quest"]
