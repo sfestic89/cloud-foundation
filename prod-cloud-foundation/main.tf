@@ -147,7 +147,7 @@ module "wif" {
 }
 
 module "rearc_wif_provider" {
-  source = "../modules/wif_provider"
+  source = "../modules/wif"
 
   project_id                = "ccoi-wif-project"
   pool_id                   = "rearc-quest-wif-pool"
