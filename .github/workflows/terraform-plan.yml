@@ -28,7 +28,7 @@ jobs:
     - id: auth
       uses: google-github-actions/auth@v2.0.0  
       with:
-        workload_identity_provider: "projects/726010183755/locations/global/workloadIdentityPools/lz-github-pool/providers/cloud-infra-github-pool"
+        workload_identity_provider: "projects/726010183755/locations/global/workloadIdentityPools/lz-github-pool/providers/lz-provider"
         service_account: "ccoegithub-terraform@ccoe-seed-project.iam.gserviceaccount.com"
         audience: "https://github.com/sfestic89/cloud-foundation"
 
