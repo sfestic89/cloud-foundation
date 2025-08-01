@@ -81,46 +81,17 @@ module "state_bucket" {
   bucket_location = "EU"
   storage_class   = "STANDARD"
 }
-module "impersonation" {
-  source                 = "../modules/sa-impersionation"
-  target_project         = "ccoe-seed-project"
-  project_id             = module.projects.project_ids["ccoe-seed-project"]
-  display_name           = "Terraform Github Infra SA"
-  account_id             = "ccoegithub-terraform"
-  service_account_id     = "github-deployer"
-  github_organisation    = "sfestic89"
-  github_repository      = "cloud-foundation"
-  central_project_number = "726010183755"
-  pool_id                = module.wif.pool_id
-  github_pool_name       = module.wif.pool_name
 
-  org_id = "718865262377" # Replace with your actual org ID
-  org_roles = [
-    "roles/resourcemanager.folderCreator",
-    "roles/resourcemanager.projectCreator",
-    "roles/iam.serviceAccountAdmin",
-    "roles/iam.workloadIdentityPoolAdmin",
-    "roles/iam.workloadIdentityPoolViewer",
-    "roles/storage.admin",
-    "roles/iam.securityAdmin",
-    "roles/iam.organizationRoleAdmin",
-    "roles/billing.user"
-  ]
-  sa_roles = [
-    "roles/iam.serviceAccountUser",
-    "roles/iam.serviceAccountTokenCreator"
-  ]
-}
-module "wif" {
+module "cloud_fundation_wif" {
   source = "../modules/wif"
 
-  project_id        = "ccoi-wif-project"
-  pool_id           = "cloud-infra-github-pool"
-  pool_display_name = "GitHub Workload Identity Pool"
-  pool_description  = "Federation pool for GitHub Actions"
+  project_id        = module.projects.project_ids["ccoi-wif-project"] #"ccoi-wif-project"
+  pool_id           = "lz-github-pool"
+  pool_display_name = "Github Landing Zone Pool"
+  pool_description  = "Manage Landing Zone with GitHub Actions"
   pool_disabled     = false
 
-  provider_id           = "cloud-infra-github-pool"
+  provider_id           = "lz-provider"
   provider_display_name = "GitHub OIDC Provider"
   provider_description  = "Provider for GitHub OIDC federation"
   provider_disabled     = false
@@ -135,6 +106,56 @@ module "wif" {
   attribute_condition = "attribute.repository == assertion.repository && attribute.repository_owner == assertion.repository_owner"
 }
 
+module "wif_sa" {
+  source     = "../modules/service-accounts"
+  project_id = module.projects.project_ids["ccoe-seed-project"]
+  service_accounts = {
+    "wif-tf-sa" = {
+      display_name = "WIF Terraform SA"
+      description  = "Used by CI/CD pipelines"
+      disabled     = false
+    }
+    "data-pipeline" = {
+      display_name = "Data Pipeline SA"
+      description  = "Used by Data pipelines"
+      disabled     = false
+    }
+  }
+}
+module "wif-sa-impersionation" {
+  source = "../modules/iam/impersionation"
+
+  target_project      = "ccoe-seed-project"
+  service_account_id  = module.wif_sa.service_account_names["wif-tf-sa"]
+  github_pool_name    = module.cloud_fundation_wif.pool_name
+  github_organisation = "sfestic89"
+  github_repository   = "cloud-foundation"
+}
+/**
+module "rearc_wif_provider" {
+  source = "../modules/wif"
+
+  project_id            = module.projects.project_ids["ccoi-wif-project"]
+  pool_id               = "rearc-github-pool"
+  pool_display_name = "Github Rearc Zone Pool"
+  pool_description  = "Managing Rearc Project with Github Actions"
+  pool_disabled     = false
+
+  provider_id           = "github-provider"
+  provider_display_name = "GitHub Rearc Quest Provider"
+  provider_description  = "Provider for rearc-quest repo"
+  provider_disabled     = false
+
+  issuer_uri            = "https://token.actions.githubusercontent.com"
+  allowed_audiences     = ["https://github.com/sfestic89/rearc-quest"]
+  attribute_mapping = {
+    "google.subject"             = "assertion.sub"
+    "attribute.repository"       = "assertion.repository"
+    "attribute.repository_owner" = "assertion.repository_owner"
+  }
+  attribute_condition = "attribute.repository == 'sfestic89/rearc-quest'"
+}
+/**
 module "impersonation_rearc" {
   source             = "../modules/sa-impersionation"
   target_project     = "rearc-quest-project"                              # 🔹 target is rearc project
@@ -193,3 +214,4 @@ module "rearc_quest_prj_iam" {
     "roles/iam.serviceAccountUser"
   ]
 }
+**/
