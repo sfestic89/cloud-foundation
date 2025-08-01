@@ -7,7 +7,6 @@ module "bootstrap_folders" {
     "rearc"
   ]
 }
-
 module "projects" {
   source = "../modules/projects"
 
@@ -74,27 +73,14 @@ module "projects" {
     }
   ]
 }
+module "state_bucket" {
+  source = "../modules/cloud-storage" # adjust the path
 
-module "ccoe_terraform_sa" {
-  source       = "../modules/service-accounts"
-  project_id   = module.projects.project_ids["ccoe-seed-project"] # or module.project.project_id
-  account_id   = "ccoe-terraform"
-  display_name = "Terraform Infra SA"
-  org_id       = "718865262377"
-
-  org_roles = [
-    "roles/resourcemanager.folderCreator",
-    "roles/resourcemanager.projectCreator",
-    "roles/iam.serviceAccountAdmin",
-    "roles/iam.workloadIdentityPoolAdmin",
-    "roles/iam.workloadIdentityPoolViewer",
-    "roles/storage.admin",
-    "roles/iam.securityAdmin",
-    "roles/iam.organizationRoleAdmin",
-    "roles/billing.user"
-  ]
+  project_id      = module.projects.project_ids["ccoe-seed-project"]
+  bucket_name_set = ["tf-state-ccoe-seed"]
+  bucket_location = "EU"
+  storage_class   = "STANDARD"
 }
-
 module "impersonation" {
   source                 = "../modules/sa-impersionation"
   target_project         = "ccoe-seed-project"
@@ -125,7 +111,6 @@ module "impersonation" {
     "roles/iam.serviceAccountTokenCreator"
   ]
 }
-
 module "wif" {
   source = "../modules/wif"
 
@@ -151,56 +136,48 @@ module "wif" {
 }
 
 module "impersonation_rearc" {
-  source                 = "../modules/sa-impersionation"
-  target_project         = "rearc-quest-project"  # 🔹 target is rearc project
-  project_id             = module.projects.project_ids["rearc-quest-project"]  # 🔹 rearc project id
-  display_name           = "GitHub Deployer Rearc Quest"
-  account_id             = "rearc-deployer"  # This creates github-deployer@rearc-quest-project
-  service_account_id     = "rearc-gh-deployer"
+  source             = "../modules/sa-impersionation"
+  target_project     = "rearc-quest-project"                              # 🔹 target is rearc project
+  project_id         = module.projects.project_ids["rearc-quest-project"] # 🔹 rearc project id
+  display_name       = "GitHub Deployer Rearc Quest"
+  account_id         = "rearc-deployer" # This creates github-deployer@rearc-quest-project
+  service_account_id = "rearc-gh-deployer"
 
-  github_organisation    = "sfestic89"
-  github_repository      = "rearc-quest"  # 🔹 different repo
+  github_organisation = "sfestic89"
+  github_repository   = "rearc-quest" # 🔹 different repo
 
   central_project_number = "726010183755"
-  pool_id                = module.rearc_wif_provider.pool_id  # or your central WIF pool
-  github_pool_name       = module.rearc_wif_provider.pool_name  # workload identity pool name for rearc repo
+  pool_id                = module.rearc_wif_provider.pool_id   # or your central WIF pool
+  github_pool_name       = module.rearc_wif_provider.pool_name # workload identity pool name for rearc repo
 
-  org_id = "718865262377"  # use if needed, or leave empty if no org-level roles
+  org_id = "718865262377" # use if needed, or leave empty if no org-level roles
 
-  org_roles = []  # Rearc SA probably doesn't need org-level roles
+  org_roles = [] # Rearc SA probably doesn't need org-level roles
   sa_roles = [
     "roles/iam.serviceAccountUser",
     "roles/iam.serviceAccountTokenCreator"
   ]
-  impersonators = [
-  "ccoegithub-terraform@ccoe-seed-project.iam.gserviceaccount.com"
-]
+  #impersonators = [
+  #"ccoegithub-terraform@ccoe-seed-project.iam.gserviceaccount.com"
+  #]
 }
 module "rearc_wif_provider" {
   source = "../modules/wif"
 
-  project_id                = "ccoi-wif-project"
-  pool_id                   = "rearc-quest-wif-pool"
-  provider_id               = "github-provider"
-  provider_display_name     = "GitHub Rearc Quest Provider"
-  provider_description      = "OIDC provider for rearc-quest repo"
-  provider_disabled         = false
-  issuer_uri                = "https://token.actions.githubusercontent.com"
-  allowed_audiences         = ["https://github.com/sfestic89/rearc-quest"]
+  project_id            = "ccoi-wif-project"
+  pool_id               = "rearc-quest-wif-pool"
+  provider_id           = "github-provider"
+  provider_display_name = "GitHub Rearc Quest Provider"
+  provider_description  = "OIDC provider for rearc-quest repo"
+  provider_disabled     = false
+  issuer_uri            = "https://token.actions.githubusercontent.com"
+  allowed_audiences     = ["https://github.com/sfestic89/rearc-quest"]
   attribute_mapping = {
     "google.subject"             = "assertion.sub"
     "attribute.repository"       = "assertion.repository"
     "attribute.repository_owner" = "assertion.repository_owner"
   }
   attribute_condition = "attribute.repository == 'sfestic89/rearc-quest'"
-}
-module "state_bucket" {
-  source = "../modules/cloud-storage" # adjust the path
-
-  project_id      = module.projects.project_ids["ccoe-seed-project"]
-  bucket_name_set = ["tf-state-ccoe-seed"]
-  bucket_location = "EU"
-  storage_class   = "STANDARD"
 }
 
 module "rearc_quest_prj_iam" {
