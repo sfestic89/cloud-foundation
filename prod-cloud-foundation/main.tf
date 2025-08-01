@@ -115,12 +115,33 @@ module "wif_sa" {
       description  = "Used by CI/CD pipelines"
       disabled     = false
     }
-    "data-pipeline" = {
-      display_name = "Data Pipeline SA"
-      description  = "Used by Data pipelines"
-      disabled     = false
-    }
   }
+}
+
+module "wif_sa_org_roles" {
+  source = "../modules/iam/org-binding"
+
+  org_id = "718865262377"
+  roles = [
+    "roles/resourcemanager.folderAdmin",
+    "roles/resourcemanager.projectCreator",
+    "roles/orgpolicy.policyAdmin",
+    "roles/iam.organizationRoleAdmin",
+    "roles/iam.securityAdmin",
+    "roles/serviceusage.serviceUsageAdmin",
+    "roles/billing.user"
+  ]
+  member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
+}
+
+module "wif_sa_seed_prj_roles" {
+  source = "../modules/iam/prj-binding"
+
+  project_id = module.projects.project_ids["ccoe-seed-project"]
+  roles = [
+    "roles/storage.admin"
+  ]
+  member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
 }
 module "wif-sa-impersionation" {
   source = "../modules/iam/impersionation"
