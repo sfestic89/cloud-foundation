@@ -1,14 +1,23 @@
-output "service_account_id" {
-  description = "The ID of the created service account"
-  value       = google_service_account.this.account_id
+output "service_account_emails" {
+  description = "Map of service account emails, keyed by account_id"
+  value = {
+    for k, sa in google_service_account.sa_creation :
+    k => sa.email
+  }
 }
 
-output "service_account_email" {
-  description = "Email of the created service account"
-  value       = google_service_account.this.email
+output "service_account_names" {
+  description = "Map of fully-qualified service account resource names"
+  value = {
+    for k, sa in google_service_account.sa_creation :
+    k => sa.name
+  }
 }
 
-output "service_account_name" {
-  description = "Fully qualified name of the service account"
-  value       = google_service_account.this.name
+output "service_account_ids" {
+  description = "Map of service account unique IDs"
+  value = {
+    for k, sa in google_service_account.sa_creation :
+    k => sa.unique_id
+  }
 }
