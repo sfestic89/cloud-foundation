@@ -143,6 +143,16 @@ module "wif_sa_seed_prj_roles" {
   ]
   member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
 }
+
+module "wif_sa_wif_prj_roles" {
+  source = "../modules/iam/prj-binding"
+
+  project_id = module.projects.project_ids["ccoi-wif-project"]
+  roles = [
+    "roles/iam.workloadIdentityPoolAdmin"
+  ]
+  member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
+}
 module "wif-sa-impersionation" {
   source = "../modules/iam/impersionation"
 
