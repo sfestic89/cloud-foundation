@@ -134,7 +134,7 @@ module "wif_sa_org_roles" {
   member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
 }
 
-module "wif_sa_seed_prj_roles" {
+module "wif_sa_seed_prj_roles" { # This needs to be changed to Storage level, not on Project Level
   source = "../modules/iam/prj-binding"
 
   project_id = module.projects.project_ids["ccoe-seed-project"]
@@ -142,6 +142,12 @@ module "wif_sa_seed_prj_roles" {
     "roles/storage.admin"
   ]
   member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
+}
+module "gcs_tf_state_iam_bindings" {
+  source      = "../modules/iam/storage-binding"
+  bucket_name = "tf-state-ccoe-seed"
+  roles       = ["roles/storage.admin"]
+  member      = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
 }
 
 module "wif_sa_wif_prj_roles" {
