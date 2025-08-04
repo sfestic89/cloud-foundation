@@ -69,7 +69,6 @@ module "projects" {
       labels = {
         environment = "bootstrap"
         owner       = "terraform"
-        env         = "ccoe"
       }
       apis = [
         "orgpolicy.googleapis.com",
