@@ -7,6 +7,38 @@ module "bootstrap_folders" {
     "rearc"
   ]
 }
+/**
+module "common-fld-roles" {
+  source = "../modules/iam/fld-binding" 
+  folder_id = module.bootstrap_folders.folder_ids["common"]
+  roles = [ 
+    "roles/logging.admin",
+    "roles/monitoring.admin",
+    "roles/iam.serviceAccountAdmin", # Create, Delete Service Accounts
+    "roles/serviceusage.serviceUsageAdmin" # Enable, Disable APIs in projects
+    ]
+  member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
+}
+**/
+module "folder_iam_bindings" {
+  source    = "../modules/iam/fld-binding"
+  folder_id = module.bootstrap_folders.folder_ids["common"]
+
+  iam_bindings = {
+    "roles/logging.admin" = [
+      "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}",
+    ],
+    "roles/monitoring.admin" = [
+      "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
+    ],
+    "roles/iam.serviceAccountAdmin" = [
+      "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
+    ]
+    "roles/serviceusage.serviceUsageAdmin" = [
+      "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
+    ]
+  }
+}
 module "projects" {
   source = "../modules/projects"
 
@@ -126,10 +158,17 @@ module "wif_sa_org_roles" {
     "roles/resourcemanager.folderAdmin",
     "roles/resourcemanager.projectCreator",
     "roles/orgpolicy.policyAdmin",
+    "roles/orgpolicy.policyViewer", # ✅ for policy read
     "roles/iam.organizationRoleAdmin",
+    "roles/iam.roleAdmin", # ✅ for project-level custom roles
     "roles/iam.securityAdmin",
     "roles/serviceusage.serviceUsageAdmin",
-    "roles/billing.user"
+    "roles/billing.user",
+    "roles/compute.xpnAdmin",                 # if shared VPCs used
+    "roles/accesscontextmanager.policyAdmin", # if Access Context Manager is used
+    "roles/logging.admin",                    # for centralized logging
+    "roles/monitoring.admin",                 # for monitoring resources
+    "roles/cloudkms.admin"                    # if you use CMEK
   ]
   member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
 }
