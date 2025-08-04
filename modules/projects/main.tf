@@ -10,8 +10,8 @@ locals {
       ]
     ]) : pair.key => pair
   }
-}
 
+}
 resource "google_project" "this" {
   for_each = { for p in var.projects : p.project_id => p }
 
@@ -21,7 +21,6 @@ resource "google_project" "this" {
   billing_account = each.value.billing_account
   labels          = each.value.labels
 }
-
 resource "google_project_service" "gcp_services" {
   for_each = local.project_api_map
 
@@ -30,3 +29,5 @@ resource "google_project_service" "gcp_services" {
 
   depends_on = [google_project.this]
 }
+
+
