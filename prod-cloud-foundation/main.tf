@@ -160,7 +160,6 @@ module "wif_sa_org_roles" {
     "roles/orgpolicy.policyAdmin",
     "roles/orgpolicy.policyViewer", # ✅ for policy read
     "roles/iam.organizationRoleAdmin",
-    "roles/iam.roleAdmin", # ✅ for project-level custom roles
     "roles/iam.securityAdmin",
     "roles/serviceusage.serviceUsageAdmin",
     "roles/billing.user",
