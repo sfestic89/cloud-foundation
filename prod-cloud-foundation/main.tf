@@ -1,17 +1,28 @@
 module "org_policy" {
   source = "../modules/org-policy"
 
-  target_resource = "organizations/718865262377"
+  target_resource = "organizations/718865262377" # or a folder/project if needed
 
-  constraint = [
-    "compute.vmExternalIpAccess",
-    "compute.requireOsLogin"
-  ]
+  policies = {
+    # Boolean constraint — enables OS Login
+    "compute.requireOsLogin" = {
+      constraint_type = "boolean"
+      enforce         = true
+      policy_type     = "deny" # interpreted as enforce = true
+      tag_key         = "tagKeys/env"
+      tag_value       = "tagValues/ccoe"
+    }
 
-  enforce     = true
-  policy_type = "deny"
+    # List constraint — blocks external IPs for tagged resources
+    "compute.vmExternalIpAccess" = {
+      constraint_type = "list"
+      enforce         = false  # means apply conditionally
+      policy_type     = "deny" # deny access for matching tag
+      tag_key         = "tagKeys/env"
+      tag_value       = "tagValues/ccoe"
+    }
+  }
 }
-
 module "bootstrap_folders" {
   source = "../modules/folders"
   parent = "organizations/718865262377"
