@@ -1,9 +1,9 @@
 resource "google_org_policy_policy" "tag_condition_policy" {
-  for_each = toset(var.constraint)
+  for_each = var.policies
 
-  name       = "${var.target_resource}/policies/${each.key}"
-  parent   = var.target_resource
-  
+  name   = "${var.target_resource}/policies/${each.key}"
+  parent = var.target_resource
+
   spec {
     inherit_from_parent = false
 
@@ -24,7 +24,7 @@ resource "google_org_policy_policy" "tag_condition_policy" {
 
       content {
         condition {
-          expression  = "resource.matchTag('${var.tag_key}', '${var.tag_value}')"
+          expression  = "resource.matchTag('${each.value.tag_key}', '${each.value.tag_value}')"
           title       = "Tag condition"
           description = "Applies only to resources with this tag"
         }

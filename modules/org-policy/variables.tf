@@ -2,12 +2,17 @@ variable "target_resource" {
   type        = string
   description = "The resource to apply the policy to. Must be an organization, folder, or project resource name (e.g., 'organizations/1234567890', 'folders/1234567890')."
 }
+variable "policies" {
+  type = map(object({
+    constraint_type = string # "boolean" or "list"
+    enforce         = bool
+    policy_type     = string # "deny" or "allow"
+    tag_key         = string
+    tag_value       = string
+  }))
 
-variable "constraint" {
-    type        = list(string)
-  description = "List of Org Policy constraint names to apply."
+  description = "Map of constraint names to policy settings."
 }
-
 variable "enforce" {
   type        = bool
   default     = false
