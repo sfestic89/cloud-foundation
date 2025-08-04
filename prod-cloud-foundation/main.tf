@@ -12,15 +12,6 @@ module "org_policy" {
       tag_key         = "718865262377/env"
       tag_value       = "ccoe"
     }
-
-    # List constraint — blocks external IPs for tagged resources
-    "compute.vmExternalIpAccess" = {
-      constraint_type = "list"
-      enforce         = false  # means apply conditionally
-      policy_type     = "deny" # deny access for matching tag
-      tag_key         = "718865262377/env"
-      tag_value       = "ccoe"
-    }
   }
 }
 module "bootstrap_folders" {
