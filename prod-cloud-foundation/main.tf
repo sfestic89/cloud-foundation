@@ -187,8 +187,8 @@ module "wif_sa_org_roles" {
     "roles/logging.admin",                    # for centralized logging
     "roles/monitoring.admin",                 # for monitoring resources
     "roles/cloudkms.admin",                   # if you use CMEK
-    "resourcemanager.tagKeys.create",
-    "resourcemanager.tagValues.create"
+    "roles/resourcemanager.tagKeys.create",
+    "roles/resourcemanager.tagValues.create"
 
   ]
   member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
