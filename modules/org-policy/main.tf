@@ -24,7 +24,7 @@ resource "google_org_policy_policy" "tag_condition_policy" {
 
       content {
         condition {
-          expression  = "resource.matchTagId('${each.value.tag_key}', '${each.value.tag_value}')"
+          expression  = "resource.matchTagId('tagKeys/${each.value.tag_key}', 'tagValues/${each.value.tag_value}')"
           title       = "Tag condition"
           description = "Applies only to resources with this tag"
         }
