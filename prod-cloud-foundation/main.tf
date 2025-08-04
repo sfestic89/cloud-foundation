@@ -9,8 +9,8 @@ module "org_policy" {
       constraint_type = "boolean"
       enforce         = true
       policy_type     = "deny" # interpreted as enforce = true
-      tag_key         = "tagKeys/env"
-      tag_value       = "tagValues/ccoe"
+      tag_key         = "718865262377/env"
+      tag_value       = "ccoe"
     }
 
     # List constraint — blocks external IPs for tagged resources
@@ -18,8 +18,8 @@ module "org_policy" {
       constraint_type = "list"
       enforce         = false  # means apply conditionally
       policy_type     = "deny" # deny access for matching tag
-      tag_key         = "tagKeys/env"
-      tag_value       = "tagValues/ccoe"
+      tag_key         = "718865262377/env"
+      tag_value       = "ccoe"
     }
   }
 }
