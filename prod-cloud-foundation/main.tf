@@ -14,7 +14,7 @@ module "org_policy" {
     }
   }
 }
-
+/**
 module "project_tags" {
   source = "../modules/tags" # relative path to your module
 
@@ -26,6 +26,7 @@ module "project_tags" {
     "owner" = ["ccoe"]
   }
 }
+**/
 module "bootstrap_folders" {
   source = "../modules/folders"
   parent = "organizations/718865262377"
@@ -184,7 +185,10 @@ module "wif_sa_org_roles" {
     "roles/accesscontextmanager.policyAdmin", # if Access Context Manager is used
     "roles/logging.admin",                    # for centralized logging
     "roles/monitoring.admin",                 # for monitoring resources
-    "roles/cloudkms.admin"                    # if you use CMEK
+    "roles/cloudkms.admin",                   # if you use CMEK
+    "resourcemanager.tagKeys.create",
+    "resourcemanager.tagValues.create"
+                        
   ]
   member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
 }
@@ -199,18 +203,6 @@ module "wif_sa_wif_prj_roles" {
     ]
   }
 }
-/**
-module "wif_sa_wif_prj_roles" {
-  source = "../modules/iam/prj-binding"
-
-  project_id = module.projects.project_ids["ccoi-wif-project"]
-  roles = [
-    "roles/iam.workloadIdentityPoolAdmin"
-  ]
-  member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
-}
-**/
-
 module "gcs_tf_state_iam_bindings" {
   source      = "../modules/iam/storage-binding"
   bucket_name = "tf-state-ccoe-seed"
