@@ -4,8 +4,8 @@ module "org_policy" {
   target_resource = "organizations/718865262377"
 
   constraint = [
-    "constraints/compute.vmExternalIpAccess",
-    "constraints/compute.requireOsLogin"
+    "compute.vmExternalIpAccess",
+    "compute.requireOsLogin"
   ]
 
   enforce     = true
