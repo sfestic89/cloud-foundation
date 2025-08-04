@@ -1,4 +1,3 @@
-/**
 module "org_policy" {
   source = "../modules/org-policy"
 
@@ -12,7 +11,7 @@ module "org_policy" {
   enforce     = true
   policy_type = "deny"
 }
-**/
+
 module "bootstrap_folders" {
   source = "../modules/folders"
   parent = "organizations/718865262377"
