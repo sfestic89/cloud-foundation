@@ -1,3 +1,4 @@
+
 module "org_policy" {
   source = "../modules/org-policy"
 
@@ -14,6 +15,7 @@ module "org_policy" {
     }
   }
 }
+
 /**
 module "project_tags" {
   source = "../modules/tags" # relative path to your module
@@ -188,7 +190,7 @@ module "wif_sa_org_roles" {
     "roles/cloudkms.admin",                   # if you use CMEK
     "resourcemanager.tagKeys.create",
     "resourcemanager.tagValues.create"
-                        
+
   ]
   member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
 }
@@ -199,6 +201,12 @@ module "wif_sa_wif_prj_roles" {
 
   iam_bindings = {
     "roles/iam.workloadIdentityPoolAdmin" = [
+      "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
+    ],
+    "roles/resourcemanager.projectIamAdmin" = [
+      "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
+    ],
+    "roles/resourcemanager.projectUpdater" = [
       "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
     ]
   }
