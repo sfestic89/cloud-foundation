@@ -1,12 +1,3 @@
-/**
-resource "google_folder_iam_member" "folder_roles" {
-  for_each = toset(var.roles)
-
-  folder = var.folder_id
-  role   = each.value
-  member = var.member
-}
-**/
 locals {
   # Flatten the iam_bindings map into a list of role-member pairs
   bindings = flatten([

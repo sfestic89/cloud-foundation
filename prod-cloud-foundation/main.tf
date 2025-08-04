@@ -7,19 +7,6 @@ module "bootstrap_folders" {
     "rearc"
   ]
 }
-/**
-module "common-fld-roles" {
-  source = "../modules/iam/fld-binding" 
-  folder_id = module.bootstrap_folders.folder_ids["common"]
-  roles = [ 
-    "roles/logging.admin",
-    "roles/monitoring.admin",
-    "roles/iam.serviceAccountAdmin", # Create, Delete Service Accounts
-    "roles/serviceusage.serviceUsageAdmin" # Enable, Disable APIs in projects
-    ]
-  member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
-}
-**/
 module "folder_iam_bindings" {
   source    = "../modules/iam/fld-binding"
   folder_id = module.bootstrap_folders.folder_ids["common"]
@@ -171,6 +158,18 @@ module "wif_sa_org_roles" {
   ]
   member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
 }
+
+module "wif_sa_wif_prj_roles" {
+  source     = "../modules/iam/prj-binding"
+  project_id = module.projects.project_ids["ccoi-wif-project"]
+
+  iam_bindings = {
+    "roles/iam.workloadIdentityPoolAdmin" = [
+      "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
+    ]
+  }
+}
+/**
 module "wif_sa_wif_prj_roles" {
   source = "../modules/iam/prj-binding"
 
@@ -180,6 +179,8 @@ module "wif_sa_wif_prj_roles" {
   ]
   member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
 }
+**/
+
 module "gcs_tf_state_iam_bindings" {
   source      = "../modules/iam/storage-binding"
   bucket_name = "tf-state-ccoe-seed"
