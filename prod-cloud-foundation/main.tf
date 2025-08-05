@@ -15,6 +15,7 @@ module "org_policy" {
     }
   }
 }
+/**
 module "project_tags" {
   source = "../modules/tags" # relative path to your module
 
@@ -26,6 +27,7 @@ module "project_tags" {
     "owner" = ["ccoe"]
   }
 }
+**/
 module "bootstrap_folders" {
   source = "../modules/folders"
   parent = "organizations/718865262377"
@@ -198,6 +200,9 @@ module "wif_sa_wif_prj_roles" {
       "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
     ],
     "roles/resourcemanager.projectIamAdmin" = [
+      "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
+    ],
+    "roles/resourcemanager.tagUser" = [
       "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
     ]
   }
