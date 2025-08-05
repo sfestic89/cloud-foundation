@@ -190,7 +190,19 @@ module "wif_sa_org_roles" {
   ]
   member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
 }
+module "wif_sa_ccoe_prj_roles" {
+  source     = "../modules/iam/prj-binding"
+  project_id = module.projects.project_ids["ccoe-seed-project"]
 
+  iam_bindings = {
+    "roles/resourcemanager.projectIamAdmin" = [
+      "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
+    ],
+    "roles/resourcemanager.tagUser" = [
+      "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
+    ]
+  }
+}
 module "wif_sa_wif_prj_roles" {
   source     = "../modules/iam/prj-binding"
   project_id = module.projects.project_ids["ccoi-wif-project"]
