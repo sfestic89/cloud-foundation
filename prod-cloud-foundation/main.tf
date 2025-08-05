@@ -22,7 +22,7 @@ module "project_tags" {
 
   tags_to_create = {
     "env"   = ["prod"]
-    "owner" = ["ccoe", "gomakeit"]
+    "owner" = ["ccoe"]
   }
 }
 module "bootstrap_folders" {
