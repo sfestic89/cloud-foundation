@@ -187,9 +187,7 @@ module "wif_sa_org_roles" {
     "roles/logging.admin",                    # for centralized logging
     "roles/monitoring.admin",                 # for monitoring resources
     "roles/cloudkms.admin",                   # if you use CMEK
-    "roles/resourcemanager.tagKeys.create",
-    "roles/resourcemanager.tagValues.create"
-
+    "roles/resourcemanager.tagAdmin"
   ]
   member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
 }
@@ -205,9 +203,9 @@ module "wif_sa_wif_prj_roles" {
     "roles/resourcemanager.projectIamAdmin" = [
       "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
     ],
-    "roles/resourcemanager.projectUpdater" = [
+    "roles/resourcemanager.tagAdmin" = [
       "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
-    ]
+    ],
   }
 }
 module "gcs_tf_state_iam_bindings" {
