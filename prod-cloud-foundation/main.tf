@@ -14,7 +14,6 @@ module "org_policy" {
     }
   }
 }
-/**
 module "project_tags" {
   source = "../modules/tags" # relative path to your module
 
@@ -26,7 +25,6 @@ module "project_tags" {
     "owner" = ["ccoe", "gomakeit"]
   }
 }
-**/
 module "bootstrap_folders" {
   source = "../modules/folders"
   parent = "organizations/718865262377"
