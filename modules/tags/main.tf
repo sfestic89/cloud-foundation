@@ -24,7 +24,7 @@ resource "google_tags_tag_value" "project_tag_value" {
     for tv in local.tag_values : "${tv.key_short_name}-${tv.value_short_name}" => tv
   }
 
-  parent      = google_tags_tag_key.project_tag_key[each.value.key_short_name].name
+  parent      = google_tags_tag_key.project_tag_key[each.value.key_short_name].id
   short_name  = each.value.value_short_name
   description = "Tag value '${each.value.value_short_name}' for key '${each.value.key_short_name}'"
 }
