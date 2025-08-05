@@ -10,7 +10,7 @@ module "org_policy" {
       enforce         = true
       policy_type     = "deny" # interpreted as enforce = true
       tag_key         = "718865262377/env"
-      tag_value       = "ccoe"
+      tag_value       = "prod"
     }
   }
 }
