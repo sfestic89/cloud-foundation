@@ -202,10 +202,7 @@ module "wif_sa_wif_prj_roles" {
     ],
     "roles/resourcemanager.projectIamAdmin" = [
       "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
-    ],
-    "roles/resourcemanager.tagAdmin" = [
-      "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
-    ],
+    ]
   }
 }
 module "gcs_tf_state_iam_bindings" {
