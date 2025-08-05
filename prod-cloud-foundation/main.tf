@@ -1,4 +1,3 @@
-
 module "org_policy" {
   source = "../modules/org-policy"
 
@@ -15,6 +14,7 @@ module "org_policy" {
     }
   }
 }
+/**
 module "project_tags" {
   source = "../modules/tags" # relative path to your module
 
@@ -23,10 +23,10 @@ module "project_tags" {
 
   tags_to_create = {
     "env"   = ["prod"]
-    "owner" = ["ccoe"]
+    "owner" = ["ccoe", "gomakeit"]
   }
 }
-
+**/
 module "bootstrap_folders" {
   source = "../modules/folders"
   parent = "organizations/718865262377"
@@ -185,7 +185,8 @@ module "wif_sa_org_roles" {
     "roles/logging.admin",                    # for centralized logging
     "roles/monitoring.admin",                 # for monitoring resources
     "roles/cloudkms.admin",                   # if you use CMEK
-    "roles/resourcemanager.tagAdmin"
+    "roles/resourcemanager.tagAdmin",
+    "roles/resourcemanager.tagUser"
   ]
   member = "serviceAccount:${module.wif_sa.service_account_emails["wif-tf-sa"]}"
 }
