@@ -4,16 +4,30 @@ module "org_policy" {
   target_resource = "organizations/718865262377" # or a folder/project if needed
 
   policies = {
-    # Boolean constraint — enables OS Login
     "compute.requireOsLogin" = {
       constraint_type = "boolean"
       enforce         = true
-      policy_type     = "deny" # interpreted as enforce = true
-      tag_key         = "718865262377/env"
-      tag_value       = "prod"
+      #policy_type     = "deny" # interpreted as enforce = true
+      #tag_key         = "718865262377/env"
+      #tag_value       = "prod"
+    },
+    "compute.disableSerialPortAccess" = {
+      constraint_type = "boolean"
+      enforce         = true
+      #policy_type     = "deny" # interpreted as enforce = true
+      #tag_key         = "718865262377/env"
+      #tag_value       = "prod"
+    },
+    "iam.disableServiceAccountKeyUpload" = {
+      constraint_type = "boolean"
+      enforce         = true
+      #policy_type     = "deny" # interpreted as enforce = true
+      #tag_key         = "718865262377/env"
+      #tag_value       = "prod"
     }
   }
 }
+
 module "project_tags" {
   source = "../modules/tags" # relative path to your module
 

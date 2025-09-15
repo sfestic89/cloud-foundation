@@ -26,3 +26,5 @@ override.tf.json
 # Ignore sensitive variable files
 *.auto.tfvars
 *.auto.tfvars.json
+
+*.DS_Store
