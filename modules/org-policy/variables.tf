@@ -7,8 +7,8 @@ variable "policies" {
     constraint_type = string # "boolean" or "list"
     enforce         = bool
     policy_type     = string # "deny" or "allow"
-    tag_key         = string
-    tag_value       = string
+    #tag_key         = string
+    #tag_value       = string
   }))
 
   description = "Map of constraint names to policy settings."
