@@ -4,7 +4,34 @@ module "org_policy" {
   target_resource = "organizations/718865262377" # or a folder/project if needed
 
   policies = {
-  
+    "compute.requireOsLogin" = {
+      constraint_type = "boolean"
+      enforce         = false # true → tags ignored
+      policy_type     = "allow"
+      tag_key         = "718865262377/env"
+      tag_value       = "prod"
+    },
+    "compute.disableSerialPortAccess" = {
+      constraint_type = "boolean"
+      enforce         = false # true → tags ignored
+      policy_type     = "allow"
+      tag_key         = "718865262377/env"
+      tag_value       = "prod"
+    },
+    "iam.disableServiceAccountKeyUpload" = {
+      constraint_type = "boolean"
+      enforce         = false # true → tags ignored
+      policy_type     = "allow"
+      tag_key         = "718865262377/env"
+      tag_value       = "prod"
+    },
+    "compute.requireShieldedVm" = {
+      constraint_type = "boolean"
+      enforce         = false          
+      policy_type     = "allow"         
+      tag_key         = "718865262377/env"
+      tag_value       = "prod"
+    },
   }
 }
 
