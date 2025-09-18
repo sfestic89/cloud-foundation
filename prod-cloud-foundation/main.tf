@@ -4,34 +4,7 @@ module "org_policy" {
   target_resource = "organizations/718865262377" # or a folder/project if needed
 
   policies = {
-    "compute.managed.requireOsLogin	" = {
-      constraint_type = "boolean"
-      enforce         = false # true → tags ignored
-      policy_type     = "deny"
-      tag_key         = "718865262377/env"
-      tag_value       = "prod"
-    },
-    "compute.managed.disableSerialPortAccess	" = {
-      constraint_type = "boolean"
-      enforce         = false # true → tags ignored
-      policy_type     = "deny"
-      tag_key         = "718865262377/env"
-      tag_value       = "prod"
-    },
-    "iam.managed.disableServiceAccountKeyUpload" = {
-      constraint_type = "boolean"
-      enforce         = false # true → tags ignored
-      policy_type     = "deny"
-      tag_key         = "718865262377/env"
-      tag_value       = "prod"
-    },
-    "compute.requireShieldedVm" = {
-      constraint_type = "boolean"
-      enforce         = false          # tag-conditional example
-      policy_type     = "deny"         # enforce (deny non-Shielded) when tag matches
-      tag_key         = "718865262377/env"
-      tag_value       = "prod"
-    },
+  
   }
 }
 
