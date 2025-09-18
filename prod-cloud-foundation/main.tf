@@ -11,13 +11,6 @@ module "org_policy" {
       tag_key         = "718865262377/env"
       tag_value       = "prod"
     },
-    "compute.disableSerialPortAccess" = {
-      constraint_type = "boolean"
-      enforce         = false # true → tags ignored
-      policy_type     = "allow"
-      tag_key         = "718865262377/env"
-      tag_value       = "prod"
-    },
     "iam.disableServiceAccountKeyUpload" = {
       constraint_type = "boolean"
       enforce         = false # true → tags ignored
