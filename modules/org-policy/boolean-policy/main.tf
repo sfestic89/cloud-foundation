@@ -3,6 +3,7 @@ resource "google_org_policy_policy" "tag_condition_policy" {
 
   parent = var.target_resource  # organizations/123
   name   = "${var.target_resource}/policies/${each.key}"
+  #name = "${var.target_resource}/policies/${trimspace(replace(each.key, "constraints/", ""))}"
 
   spec {
     inherit_from_parent = false  # You do not inherit any parent policy;
