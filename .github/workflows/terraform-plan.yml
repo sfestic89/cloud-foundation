@@ -3,7 +3,7 @@ name: Terraform Test Plan
 on:
   push:
     branches:
-      - cloud-foundation-branch  # Or use '*' to trigger on any branch
+       - '*'  # Specify branch name tf-repo or use '*' to trigger on any branch
   workflow_dispatch:
 
 jobs:
