@@ -25,7 +25,7 @@ module "org_policy" {
       tag_key         = "718865262377/env"
       tag_value       = "prod"
     },
-    "constraints/compute.requireShieldedVm" = {
+    "compute.requireShieldedVm" = {
       constraint_type = "boolean"
       enforce         = false          # tag-conditional example
       policy_type     = "deny"         # enforce (deny non-Shielded) when tag matches
