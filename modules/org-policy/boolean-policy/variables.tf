@@ -4,7 +4,6 @@ variable "target_resource" {
 }
 variable "policies" {
   type = map(object({
-    constraint_type = string # "boolean" or "list"
     enforce         = bool
     policy_type     = string # "deny" or "allow"
     tag_key         = string
