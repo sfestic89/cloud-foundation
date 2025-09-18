@@ -6,9 +6,9 @@ variable "policies" {
   type = map(object({
     constraint_type = string # "boolean" or "list"
     enforce         = bool
-    #policy_type     = string # "deny" or "allow"
-    #tag_key         = string
-    #tag_value       = string
+    policy_type     = string # "deny" or "allow"
+    tag_key         = string
+    tag_value       = string
   }))
 
   description = "Map of constraint names to policy settings."

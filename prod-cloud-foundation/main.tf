@@ -1,29 +1,29 @@
 module "org_policy" {
-  source = "../modules/org-policy"
+  source = "../modules/org-policy/boolean-policy"
 
   target_resource = "organizations/718865262377" # or a folder/project if needed
 
   policies = {
-    "compute.requireOsLogin" = {
+    "constraints/compute.requireOsLogin" = {
       constraint_type = "boolean"
-      enforce         = true
-      #policy_type     = "deny" # interpreted as enforce = true
-      #tag_key         = "718865262377/env"
-      #tag_value       = "prod"
+      enforce         = false # true → tags ignored
+      policy_type     = "deny"
+      tag_key         = "718865262377/env"
+      tag_value       = "prod"
     },
-    "compute.disableSerialPortAccess" = {
+    "constraints/compute.disableSerialPortAccess" = {
       constraint_type = "boolean"
-      enforce         = true
-      #policy_type     = "deny" # interpreted as enforce = true
-      #tag_key         = "718865262377/env"
-      #tag_value       = "prod"
+      enforce         = false # true → tags ignored
+      policy_type     = "deny"
+      tag_key         = "718865262377/env"
+      tag_value       = "prod"
     },
-    "iam.disableServiceAccountKeyUpload" = {
+    "constraints/iam.disableServiceAccountKeyUpload" = {
       constraint_type = "boolean"
-      enforce         = true
-      #policy_type     = "deny" # interpreted as enforce = true
-      #tag_key         = "718865262377/env"
-      #tag_value       = "prod"
+      enforce         = false # true → tags ignored
+      policy_type     = "deny"
+      tag_key         = "718865262377/env"
+      tag_value       = "prod"
     }
   }
 }
