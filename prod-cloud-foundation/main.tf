@@ -5,28 +5,24 @@ module "org_policy" {
 
   policies = {
     "compute.requireOsLogin" = {
-      constraint_type = "boolean"
       enforce         = false # true → tags ignored
       policy_type     = "allow"
       tag_key         = "718865262377/env"
       tag_value       = "prod"
     },
-    "compute.managed.disableSerialPortAccess" = {
-      constraint_type = "boolean"
+    "compute.disableSerialPortAccess" = {
       enforce         = false # true → tags ignored
       policy_type     = "allow"
       tag_key         = "718865262377/env"
       tag_value       = "prod"
     },
     "iam.disableServiceAccountKeyUpload" = {
-      constraint_type = "boolean"
       enforce         = false # true → tags ignored
       policy_type     = "allow"
       tag_key         = "718865262377/env"
       tag_value       = "prod"
     },
     "compute.requireShieldedVm" = {
-      constraint_type = "boolean"
       enforce         = false          
       policy_type     = "allow"         
       tag_key         = "718865262377/env"
