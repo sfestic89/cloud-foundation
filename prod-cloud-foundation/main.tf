@@ -4,21 +4,21 @@ module "org_policy" {
   target_resource = "organizations/718865262377" # or a folder/project if needed
 
   policies = {
-    "constraints/compute.requireOsLogin" = {
+    "compute.requireOsLogin" = {
       constraint_type = "boolean"
       enforce         = false # true → tags ignored
       policy_type     = "deny"
       tag_key         = "718865262377/env"
       tag_value       = "prod"
     },
-    "constraints/compute.disableSerialPortAccess" = {
+    "compute.disableSerialPortAccess" = {
       constraint_type = "boolean"
       enforce         = false # true → tags ignored
       policy_type     = "deny"
       tag_key         = "718865262377/env"
       tag_value       = "prod"
     },
-    "constraints/iam.disableServiceAccountKeyUpload" = {
+    "iam.disableServiceAccountKeyUpload" = {
       constraint_type = "boolean"
       enforce         = false # true → tags ignored
       policy_type     = "deny"
