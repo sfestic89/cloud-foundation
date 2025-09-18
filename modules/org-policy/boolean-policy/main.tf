@@ -2,7 +2,7 @@ resource "google_org_policy_policy" "tag_condition_policy" {
   for_each = var.policies  # constraints/gcp.resourceLocations
 
   parent = var.target_resource  # organizations/123
-  name   = "${var.target_resource}/policies/${each.key}"
+  name   = "${var.target_resource}/policies/constraints/${each.key}"
 
   spec {
     inherit_from_parent = false  # You do not inherit any parent policy;
