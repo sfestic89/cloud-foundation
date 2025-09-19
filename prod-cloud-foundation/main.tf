@@ -65,17 +65,17 @@ module "org_policy_list" {
   }
 }
 
-# module "project_tags" {
-#   source = "../modules/tags" # relative path to your module
+module "project_tags" {
+  source = "../modules/tags" # relative path to your module
 
-#   project_id     = module.projects.project_ids["ccoe-seed-project"]
-#   tag_key_parent = "organizations/718865262377"
+  project_id     = module.projects.project_ids["ccoe-seed-project"]
+  tag_key_parent = "organizations/718865262377"
 
-#   tags_to_create = {
-#     "env"   = ["prod"]
-#     "owner" = ["ccoe"]
-#   }
-# }
+  tags_to_create = {
+    "env"   = ["dev"]
+    "owner" = ["devops"]
+  }
+}
 
 # module "bootstrap_folders" {
 #   source = "../modules/folders"
