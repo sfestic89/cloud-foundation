@@ -13,3 +13,9 @@ variable "tag_key_parent" {
   description = "The parent of the tag key. This can be the project ID or the organization ID."
   type        = string
 }
+
+variable "tag_bindings" {
+  description = "Map of tag key short name -> single tag value short name to bind to the project."
+  type        = map(string)
+  default     = {}
+}

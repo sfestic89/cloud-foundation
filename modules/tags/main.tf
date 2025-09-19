@@ -31,8 +31,9 @@ resource "google_tags_tag_value" "project_tag_value" {
 
 # Create the Tag Binding to attach the Tag Value to the project.
 resource "google_tags_tag_binding" "project_tag_binding" {
-  for_each = google_tags_tag_value.project_tag_value
+  for_each = var.tag_bindings
 
   parent    = "//cloudresourcemanager.googleapis.com/projects/${var.project_id}"
-  tag_value = each.value.id
+  tag_value = google_tags_tag_value.project_tag_value["${each.key}-${each.value}"].id
+
 }
