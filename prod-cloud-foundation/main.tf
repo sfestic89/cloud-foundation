@@ -6,25 +6,25 @@ module "org_policy" {
   policies = {
     "compute.requireOsLogin" = {
       enforce     = false # true → tags ignored
-      policy_type = "deny"
+      policy_type = "allow"
       tag_key     = "718865262377/env"
       tag_value   = "prod"
     },
     "compute.managed.disableSerialPortAccess" = {
       enforce     = false # true → tags ignored
-      policy_type = "deny"
+      policy_type = "allow"
       tag_key     = "718865262377/env"
       tag_value   = "prod"
     },
     "iam.disableServiceAccountKeyUpload" = {
       enforce     = false # true → tags ignored
-      policy_type = "deny"
+      policy_type = "allow"
       tag_key     = "718865262377/env"
       tag_value   = "prod"
     },
     "compute.requireShieldedVm" = {
       enforce     = false
-      policy_type = "deny"
+      policy_type = "allow"
       tag_key     = "718865262377/env"
       tag_value   = "prod"
     },
@@ -44,7 +44,7 @@ module "org_policy_list" {
   policies = {
     # Allow only specific locations in prod (else allow all)
     "gcp.resourceLocations" = {
-      mode          = "allow"
+      mode          = "deny"
       values        = ["in:us-locations", "us-central1", "us-east1"]
       enforce       = false
       tag_key       = "718865262377/env"
