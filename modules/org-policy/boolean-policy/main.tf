@@ -34,24 +34,8 @@ resource "google_org_policy_policy" "tag_condition_policy" {
         }
 
   enforce = lower(each.value.policy_type) == "deny" ? true : false
+  }
 }
-      # content {
-      #   condition {
-      #     expression = "(" + join(" || ", [
-      #       for v in each.value.tag_values :
-      #       "resource.matchTag('${each.value.tag_key}', '${v}')"
-      #     ]) + ")"
-      #     title       = "Tag condition"
-      #     description = "Applies only to resources with these tag values"
-      #   }
-      #   # condition {
-      #   #   expression  = "resource.matchTag('${each.value.tag_key}', '${each.value.tag_value}')"
-      #   #   title       = "Tag condition"
-      #   #   description = "Applies only to resources with this tag"
-      #   # }
-      #   enforce = each.value.policy_type == "deny" ? true : false
-      # }
-    }
 
     # Default opposite when the tag does NOT match
     dynamic "rules" {
