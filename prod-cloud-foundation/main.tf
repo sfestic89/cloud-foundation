@@ -4,33 +4,15 @@ module "org_policy" {
   target_resource = "organizations/718865262377" # or a folder/project if needed
 
   policies = {
-    "compute.requireOsLogin" = {
+    "compute.skipDefaultNetworkCreation" = {
       enforce     = false # true → tags ignored
-      policy_type = "allow"
+      policy_type = "deny"
       tag_key     = "718865262377/env"
       tag_value   = "prod"
     },
-    "compute.managed.disableSerialPortAccess" = {
+    "storage.uniformBucketLevelAccess" = {
       enforce     = false # true → tags ignored
-      policy_type = "allow"
-      tag_key     = "718865262377/env"
-      tag_value   = "prod"
-    },
-    "iam.disableServiceAccountKeyUpload" = {
-      enforce     = false # true → tags ignored
-      policy_type = "allow"
-      tag_key     = "718865262377/env"
-      tag_value   = "prod"
-    },
-    "compute.requireShieldedVm" = {
-      enforce     = false
-      policy_type = "allow"
-      tag_key     = "718865262377/env"
-      tag_value   = "prod"
-    },
-    "iam.disableServiceAccountCreation" = {
-      enforce     = false
-      policy_type = "allow"
+      policy_type = "deny"
       tag_key     = "718865262377/env"
       tag_value   = "prod"
     }
@@ -43,23 +25,21 @@ module "org_policy_list" {
 
   policies = {
     # Allow only specific locations in prod (else allow all)
-    "gcp.resourceLocations" = {
-      mode          = "deny"
-      values        = ["in:us-locations", "us-central1", "us-east1"]
+    "compute.trustedImageProjects" = {
+      mode          = "allow"
+      values        = ["projects/debian-cloud", "projects/ubuntu-os-cloud"]
       enforce       = false
       tag_key       = "718865262377/env"
       tag_value     = "prod"
-      else_behavior = "allow_all"
     }
 
     # Deny certain services in prod (else allow all)
-    "gcp.restrictServiceUsage" = {
-      mode          = "deny"
-      values        = ["compute.googleapis.com"]
+    "iam.allowedPolicyMemberDomains" = {
+      mode          = "allow"
+      values        = ["google.com"]
       enforce       = false
       tag_key       = "718865262377/env"
       tag_value     = "prod"
-      else_behavior = "allow_all"
     }
   }
 }
