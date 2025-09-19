@@ -4,10 +4,10 @@ variable "target_resource" {
 }
 variable "policies" {
   type = map(object({
-    enforce         = bool
-    policy_type     = string # "deny" or "allow"
-    tag_key         = string
-    tag_value       = string
+    enforce     = bool
+    policy_type = string # "deny" or "allow"
+    tag_key     = string
+    tag_value   = string
   }))
 
   description = "Map of constraint names to policy settings."

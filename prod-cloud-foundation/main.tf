@@ -5,34 +5,61 @@ module "org_policy" {
 
   policies = {
     "compute.requireOsLogin" = {
-      enforce         = false # true → tags ignored
-      policy_type     = "deny"
-      tag_key         = "718865262377/env"
-      tag_value       = "prod"
-    },
-    "compute.disableSerialPortAccess" = {
-      enforce         = false # true → tags ignored
-      policy_type     = "deny"
-      tag_key         = "718865262377/env"
-      tag_value       = "prod"
-    },
-    "iam.disableServiceAccountKeyUpload" = {
-      enforce         = false # true → tags ignored
-      policy_type     = "deny"
-      tag_key         = "718865262377/env"
-      tag_value       = "prod"
-    },
-    "compute.requireShieldedVm" = {
-      enforce         = false          
-      policy_type     = "deny"         
-      tag_key         = "718865262377/env"
-      tag_value       = "prod"
-    },
-    "iam.disableServiceAccountCreation" = {
-      enforce     = false            
-      policy_type = "allow"           
+      enforce     = false # true → tags ignored
+      policy_type = "deny"
       tag_key     = "718865262377/env"
       tag_value   = "prod"
+    },
+    "compute.disableSerialPortAccess" = {
+      enforce     = false # true → tags ignored
+      policy_type = "deny"
+      tag_key     = "718865262377/env"
+      tag_value   = "prod"
+    },
+    "iam.disableServiceAccountKeyUpload" = {
+      enforce     = false # true → tags ignored
+      policy_type = "deny"
+      tag_key     = "718865262377/env"
+      tag_value   = "prod"
+    },
+    "compute.requireShieldedVm" = {
+      enforce     = false
+      policy_type = "deny"
+      tag_key     = "718865262377/env"
+      tag_value   = "prod"
+    },
+    "iam.disableServiceAccountCreation" = {
+      enforce     = false
+      policy_type = "allow"
+      tag_key     = "718865262377/env"
+      tag_value   = "prod"
+    }
+  }
+}
+
+module "org_policy_list" {
+  source          = "../modules/org-policy/list-constraints"
+  target_resource = "organizations/718865262377"
+
+  policies = {
+    # Allow only specific locations in prod (else allow all)
+    "gcp.resourceLocations" = {
+      mode          = "allow"
+      values        = ["in:us-locations", "us-central1", "us-east1"]
+      enforce       = false
+      tag_key       = "718865262377/env"
+      tag_value     = "prod"
+      else_behavior = "allow_all"
+    }
+
+    # Deny certain services in prod (else allow all)
+    "gcp.restrictServiceUsage" = {
+      mode          = "deny"
+      values        = ["compute.googleapis.com"]
+      enforce       = false
+      tag_key       = "718865262377/env"
+      tag_value     = "prod"
+      else_behavior = "allow_all"
     }
   }
 }
@@ -48,6 +75,7 @@ module "project_tags" {
     "owner" = ["ccoe"]
   }
 }
+
 module "bootstrap_folders" {
   source = "../modules/folders"
   parent = "organizations/718865262377"

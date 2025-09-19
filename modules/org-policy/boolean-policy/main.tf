@@ -1,12 +1,12 @@
 resource "google_org_policy_policy" "tag_condition_policy" {
-  for_each = var.policies  # constraints/gcp.resourceLocations
+  for_each = var.policies # constraints/gcp.resourceLocations
 
-  parent = var.target_resource  # organizations/123
+  parent = var.target_resource # organizations/123
   name   = "${var.target_resource}/policies/${each.key}"
   #name = "${var.target_resource}/policies/${trimspace(replace(each.key, "constraints/", ""))}"
 
   spec {
-    inherit_from_parent = false  # You do not inherit any parent policy;
+    inherit_from_parent = false # You do not inherit any parent policy;
 
     # This rule is for unconditional enforcement (when var.enforce is true).
     dynamic "rules" {
