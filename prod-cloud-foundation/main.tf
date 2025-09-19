@@ -68,7 +68,7 @@ module "org_policy_list" {
 module "project_tags" {
   source = "../modules/tags" # relative path to your module
 
-  project_id     = module.projects.project_ids["demo-prj-tf"]
+  project_id     = module.projects.project_ids["gomakeit-demo-prj"]
   tag_key_parent = "organizations/718865262377"
 
   tags_to_create = {
@@ -108,7 +108,7 @@ module "projects" {
 
   projects = [
     {
-      project_id      = "demo-prj-tf"
+      project_id      = "gomakeit-demo-prj"
       name            = "Demo TF Project"
       folder_id       = module.bootstrap_folders.folder_ids["test-fld"]
       billing_account = "01BAAE-738DCF-3581B5"
