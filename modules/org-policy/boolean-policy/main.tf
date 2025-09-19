@@ -25,7 +25,7 @@ resource "google_org_policy_policy" "tag_condition_policy" {
         condition {
           expression = format("(%s)",
             join(" || ", [
-              for v in each.value.tag_values :
+              for v in each.value.tag_value :
               "resource.matchTag('${each.value.tag_key}', '${v}')"
             ])
           )
