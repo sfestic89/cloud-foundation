@@ -37,32 +37,32 @@
 #   }
 # }
 
-module "org_policy_list" {
-  source          = "../modules/org-policy/list-constraints"
-  target_resource = "organizations/718865262377"
+# module "org_policy_list" {
+#   source          = "../modules/org-policy/list-constraints"
+#   target_resource = "organizations/718865262377"
 
-  policies = {
-    # Allow only specific locations in prod (else allow all)
-    "gcp.resourceLocations" = {
-      mode          = "allow"
-      values        = ["in:us-locations", "us-central1", "us-east1"]
-      enforce       = false
-      tag_key       = "718865262377/env"
-      tag_value     = "prod"
-      else_behavior = "allow_all"
-    }
+#   policies = {
+#     # Allow only specific locations in prod (else allow all)
+#     "gcp.resourceLocations" = {
+#       mode          = "allow"
+#       values        = ["in:us-locations", "us-central1", "us-east1"]
+#       enforce       = false
+#       tag_key       = "718865262377/env"
+#       tag_value     = "prod"
+#       else_behavior = "allow_all"
+#     }
 
-    # Deny certain services in prod (else allow all)
-    "gcp.restrictServiceUsage" = {
-      mode          = "deny"
-      values        = ["compute.googleapis.com"]
-      enforce       = false
-      tag_key       = "718865262377/env"
-      tag_value     = "prod"
-      else_behavior = "allow_all"
-    }
-  }
-}
+#     # Deny certain services in prod (else allow all)
+#     "gcp.restrictServiceUsage" = {
+#       mode          = "deny"
+#       values        = ["compute.googleapis.com"]
+#       enforce       = false
+#       tag_key       = "718865262377/env"
+#       tag_value     = "prod"
+#       else_behavior = "allow_all"
+#     }
+#   }
+# }
 
 module "project_tags" {
   source = "../modules/tags" # relative path to your module
