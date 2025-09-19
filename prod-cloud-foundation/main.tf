@@ -59,8 +59,8 @@ module "org_policy_list" {
       mode          = "allow"
       values        = ["projects/debian-cloud", "projects/ubuntu-os-cloud"]
       enforce       = false
-      tag_key       = "718865262377/env"
-      tag_value     = "prod"
+      tag_key       = module.project_tags.tag_key_ids["env-new"]
+      tag_value     = module.project_tags.tag_value_ids_by_key["env-new"]["dev"]
     }
   }
 }
@@ -72,8 +72,8 @@ module "project_tags" {
   tag_key_parent = "organizations/718865262377"
 
   tags_to_create = {
-    "env"   = ["dev"]
-    "owner" = ["devops"]
+    "env-new"   = ["dev", "sit", "uat", "prod"]
+    "owner-new" = ["devops", "finops", "appmod", "data"]
   }
 }
 
