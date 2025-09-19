@@ -68,7 +68,7 @@ module "org_policy_list" {
 module "project_tags" {
   source = "../modules/tags" # relative path to your module
 
-  project_id     = module.projects.project_ids["test-project"]
+  project_id     = module.projects.project_ids["demo-prj-tf"]
   tag_key_parent = "organizations/718865262377"
 
   tags_to_create = {
