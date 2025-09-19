@@ -23,7 +23,12 @@ resource "google_org_policy_policy" "list_constraint_policy" {
       for_each = !each.value.enforce ? [1] : []
       content {
         condition {
-          expression  = "resource.matchTag('${each.value.tag_key}', '${each.value.tag_value}')"
+          expression = format("(%s)",
+            join(" || ", [
+              for v in each.value.tag_value :
+              "resource.matchTag('${each.value.tag_key}', '${v}')"
+            ])
+          )
           title       = "Tag condition"
           description = "Applies only to resources with this tag"
         }
