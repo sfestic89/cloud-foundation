@@ -7,44 +7,44 @@ module "org_policy" {
     "compute.skipDefaultNetworkCreation" = {
       enforce     = false # true → tags ignored
       policy_type = "deny"
-      tag_key     = "718865262377/env"
-      tag_value   = ["prod", "dev"]
+      tag_key       = "718865262377/env-new"
+      tag_value     = ["dev"]
     },
     "storage.uniformBucketLevelAccess" = {
       enforce     = false # true → tags ignored
       policy_type = "deny"
-      tag_key     = "718865262377/env"
-      tag_value   = ["prod", "dev"]
+      tag_key       = "718865262377/env-new"
+      tag_value     = ["dev"]
     },
     "iam.disableServiceAccountKeyUpload" = {
       enforce     = false # true → tags ignored
       policy_type = "allow"
-      tag_key     = "718865262377/env"
-      tag_value   = ["prod", "dev"]
+      tag_key       = "718865262377/env-new"
+      tag_value     = ["dev"]
     },
     "compute.requireShieldedVm" = {
       enforce     = false
       policy_type = "allow"
-      tag_key     = "718865262377/env"
-      tag_value   = ["prod", "dev"]
+      tag_key       = "718865262377/env-new"
+      tag_value     = ["dev"]
     },
     "iam.disableServiceAccountCreation" = {
       enforce     = false
       policy_type = "allow"
-      tag_key     = "718865262377/env"
-      tag_value   = ["prod", "dev"]
+      tag_key       = "718865262377/env-new"
+      tag_value     = ["dev"]
     }, 
     "compute.skipDefaultNetworkCreation" = {
       enforce     = false # true → tags ignored
       policy_type = "deny"
-      tag_key     = "718865262377/env"
-      tag_value   = ["prod"]
+      tag_key       = "718865262377/env-new"
+      tag_value     = ["dev"]
     },
     "storage.uniformBucketLevelAccess" = {
       enforce     = false # true → tags ignored
       policy_type = "deny"
-      tag_key     = "718865262377/env"
-      tag_value   = ["prod"]
+      tag_key       = "718865262377/env-new"
+      tag_value     = ["dev"]
     }
   }
 }
