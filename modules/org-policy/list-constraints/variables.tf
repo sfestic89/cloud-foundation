@@ -11,7 +11,7 @@ variable "policies" {
     values        = list(string)                  # the values for the constraint
     enforce       = bool                          # true = unconditional, false = tag-conditional
     tag_key       = optional(string)              # required when enforce = false
-    tag_value     = optional(string)              # required when enforce = false
+    tag_value     = optional(list(string))              # required when enforce = false
     else_behavior = optional(string, "allow_all") # "allow_all" | "deny_all" | "inherit"
   }))
 
