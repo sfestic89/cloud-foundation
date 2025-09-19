@@ -36,12 +36,13 @@ resource "google_org_policy_policy" "list_constraint_policy" {
 
     # 3) Default for NOT tagged resources (opposite branch): allow all by default
     dynamic "rules" {
-      for_each = (!each.value.enforce && try(each.value.else_behavior, "allow_all") != "inherit") ? [1] : []
+      for_each = (!each.value.enforce && try(each.value.else_behavior, "allowed_values") != "inherit") ? [1] : []
       content {
         values {
           # Choose the fallback behavior for non-matching resources.
-          allowed_values = try(each.value.else_behavior, "allow_all") == "allow_all" ? true : null
-          denied_values  = try(each.value.else_behavior, "allow_all") == "deny_all" ? true : null
+          allowed_values = try(each.value.else_behavior, "allowed_values") == "allowed_values" ? true : null
+          denied_values  = try(each.value.else_behavior, "allowed_values") == "denied_values" ? true : null
+          
         }
       }
     }
