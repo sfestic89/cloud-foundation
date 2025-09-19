@@ -8,43 +8,43 @@ module "org_policy" {
       enforce     = false # true → tags ignored
       policy_type = "deny"
       tag_key     = "718865262377/env"
-      tag_value   = "prod"
+      tag_value   = ["prod", "dev"]
     },
     "storage.uniformBucketLevelAccess" = {
       enforce     = false # true → tags ignored
       policy_type = "deny"
       tag_key     = "718865262377/env"
-      tag_value   = "prod"
+      tag_value   = ["prod", "dev"]
     },
     "iam.disableServiceAccountKeyUpload" = {
       enforce     = false # true → tags ignored
       policy_type = "allow"
       tag_key     = "718865262377/env"
-      tag_value   = "prod"
+      tag_value   = ["prod", "dev"]
     },
     "compute.requireShieldedVm" = {
       enforce     = false
       policy_type = "allow"
       tag_key     = "718865262377/env"
-      tag_value   = "prod"
+      tag_value   = ["prod", "dev"]
     },
     "iam.disableServiceAccountCreation" = {
       enforce     = false
       policy_type = "allow"
       tag_key     = "718865262377/env"
-      tag_value   = "prod"
+      tag_value   = ["prod", "dev"]
     }, 
     "compute.skipDefaultNetworkCreation" = {
       enforce     = false # true → tags ignored
       policy_type = "deny"
       tag_key     = "718865262377/env"
-      tag_value   = "prod"
+      tag_value   = ["prod"]
     },
     "storage.uniformBucketLevelAccess" = {
       enforce     = false # true → tags ignored
       policy_type = "deny"
       tag_key     = "718865262377/env"
-      tag_value   = "prod"
+      tag_value   = ["prod"]
     }
   }
 }
@@ -65,27 +65,25 @@ module "org_policy_list" {
   }
 }
 
-# module "project_tags" {
-#   source = "../modules/tags" # relative path to your module
+module "project_tags" {
+  source = "../modules/tags" # relative path to your module
 
-#   project_id     = module.projects.project_ids["ccoe-seed-project"]
-#   tag_key_parent = "organizations/718865262377"
+  project_id     = module.projects.project_ids["test-project"]
+  tag_key_parent = "organizations/718865262377"
 
-#   tags_to_create = {
-#     "env"   = ["prod"]
-#     "owner" = ["ccoe"]
-#   }
-# }
+  tags_to_create = {
+    "env"   = ["dev"]
+    "owner" = ["devops"]
+  }
+}
 
-# module "bootstrap_folders" {
-#   source = "../modules/folders"
-#   parent = "organizations/718865262377"
-#   folder_names = [
-#     "bootstrap",
-#     "common",
-#     "rearc"
-#   ]
-# }
+module "bootstrap_folders" {
+  source = "../modules/folders"
+  parent = "organizations/718865262377"
+  folder_names = [
+    "test-fld"
+  ]
+}
 # module "folder_iam_bindings" {
 #   source    = "../modules/iam/fld-binding"
 #   folder_id = module.bootstrap_folders.folder_ids["common"]
@@ -105,73 +103,93 @@ module "org_policy_list" {
 #     ]
 #   }
 # }
-# module "projects" {
-#   source = "../modules/projects"
+module "projects" {
+  source = "../modules/projects"
 
-#   projects = [
-#     {
-#       project_id      = "ccoe-seed-project"
-#       name            = "CCOE Seed Project"
-#       folder_id       = module.bootstrap_folders.folder_ids["bootstrap"]
-#       billing_account = "01BAAE-738DCF-3581B5"
-#       labels = {
-#         environment = "bootstrap"
-#         owner       = "terraform"
-#       }
-#       apis = [
-#         "orgpolicy.googleapis.com",
-#         "serviceusage.googleapis.com",
-#         "cloudbilling.googleapis.com",
-#         "compute.googleapis.com",
-#         "storage.googleapis.com",
-#         "cloudresourcemanager.googleapis.com",
-#         "iamcredentials.googleapis.com",
-#         "iam.googleapis.com"
-#       ]
-#     },
-#     {
-#       project_id      = "ccoi-wif-project"
-#       name            = "Workload Identity Federation"
-#       folder_id       = module.bootstrap_folders.folder_ids["common"]
-#       billing_account = "01BAAE-738DCF-3581B5"
-#       labels = {
-#         env = "common"
-#       }
-#       apis = [
-#         "serviceusage.googleapis.com",
-#         "cloudbilling.googleapis.com",
-#         "compute.googleapis.com",
-#         "storage.googleapis.com",
-#         "cloudresourcemanager.googleapis.com",
-#         "iamcredentials.googleapis.com",
-#         "iam.googleapis.com"
-#       ]
-#     },
-#     {
-#       project_id      = "rearc-quest-project"
-#       name            = "Rearc Quest Project"
-#       folder_id       = module.bootstrap_folders.folder_ids["rearc"]
-#       billing_account = "01BAAE-738DCF-3581B5"
-#       labels = {
-#         environment = "demo"
-#         owner       = "sfestic"
-#       }
-#       apis = [
-#         "serviceusage.googleapis.com",
-#         "compute.googleapis.com",
-#         "storage.googleapis.com",
-#         "cloudresourcemanager.googleapis.com",
-#         "iamcredentials.googleapis.com",
-#         "iam.googleapis.com",
-#         "artifactregistry.googleapis.com",
-#         "cloudbuild.googleapis.com",
-#         "logging.googleapis.com",
-#         "monitoring.googleapis.com",
-#         "run.googleapis.com"
-#       ]
-#     }
-#   ]
-# }
+  projects = [
+    {
+      project_id      = "test-project"
+      name            = "Test Project"
+      folder_id       = module.bootstrap_folders.folder_ids["test-fld"]
+      billing_account = "01BAAE-738DCF-3581B5"
+      labels = {
+        environment = "test"
+        owner       = "sfestic"
+      }
+      apis = [
+        "orgpolicy.googleapis.com",
+        "serviceusage.googleapis.com",
+        "cloudbilling.googleapis.com",
+        "compute.googleapis.com",
+        "storage.googleapis.com",
+        "cloudresourcemanager.googleapis.com",
+        "iamcredentials.googleapis.com",
+        "iam.googleapis.com"
+      ]
+    },
+    # {
+    #   project_id      = "ccoe-seed-project"
+    #   name            = "CCOE Seed Project"
+    #   folder_id       = module.bootstrap_folders.folder_ids["bootstrap"]
+    #   billing_account = "01BAAE-738DCF-3581B5"
+    #   labels = {
+    #     environment = "bootstrap"
+    #     owner       = "terraform"
+    #   }
+    #   apis = [
+    #     "orgpolicy.googleapis.com",
+    #     "serviceusage.googleapis.com",
+    #     "cloudbilling.googleapis.com",
+    #     "compute.googleapis.com",
+    #     "storage.googleapis.com",
+    #     "cloudresourcemanager.googleapis.com",
+    #     "iamcredentials.googleapis.com",
+    #     "iam.googleapis.com"
+    #   ]
+    # },
+    # {
+    #   project_id      = "ccoi-wif-project"
+    #   name            = "Workload Identity Federation"
+    #   folder_id       = module.bootstrap_folders.folder_ids["common"]
+    #   billing_account = "01BAAE-738DCF-3581B5"
+    #   labels = {
+    #     env = "common"
+    #   }
+    #   apis = [
+    #     "serviceusage.googleapis.com",
+    #     "cloudbilling.googleapis.com",
+    #     "compute.googleapis.com",
+    #     "storage.googleapis.com",
+    #     "cloudresourcemanager.googleapis.com",
+    #     "iamcredentials.googleapis.com",
+    #     "iam.googleapis.com"
+    #   ]
+    # },
+    # {
+    #   project_id      = "rearc-quest-project"
+    #   name            = "Rearc Quest Project"
+    #   folder_id       = module.bootstrap_folders.folder_ids["rearc"]
+    #   billing_account = "01BAAE-738DCF-3581B5"
+    #   labels = {
+    #     environment = "demo"
+    #     owner       = "sfestic"
+    #   }
+    #   apis = [
+    #     "serviceusage.googleapis.com",
+    #     "compute.googleapis.com",
+    #     "storage.googleapis.com",
+    #     "cloudresourcemanager.googleapis.com",
+    #     "iamcredentials.googleapis.com",
+    #     "iam.googleapis.com",
+    #     "artifactregistry.googleapis.com",
+    #     "cloudbuild.googleapis.com",
+    #     "logging.googleapis.com",
+    #     "monitoring.googleapis.com",
+    #     "run.googleapis.com"
+    #   ]
+    # }
+  ]
+}
 # module "state_bucket" {
 #   source = "../modules/cloud-storage" # adjust the path
 

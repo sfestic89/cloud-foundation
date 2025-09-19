@@ -3,7 +3,6 @@ resource "google_org_policy_policy" "tag_condition_policy" {
 
   parent = var.target_resource # organizations/123
   name   = "${var.target_resource}/policies/${each.key}"
-  #name = "${var.target_resource}/policies/${trimspace(replace(each.key, "constraints/", ""))}"
 
   spec {
     inherit_from_parent = false # You do not inherit any parent policy;
@@ -22,15 +21,36 @@ resource "google_org_policy_policy" "tag_condition_policy" {
     # This rule is for conditional enforcement based on tags (when var.enforce is false).
     dynamic "rules" {
       for_each = !each.value.enforce ? [1] : []
-
       content {
         condition {
-          expression  = "resource.matchTag('${each.value.tag_key}', '${each.value.tag_value}')"
+          expression = format("(%s)",
+            join(" || ", [
+              for v in each.value.tag_value :
+              "resource.matchTag('${each.value.tag_key}', '${v}')"
+            ])
+          )
           title       = "Tag condition"
-          description = "Applies only to resources with this tag"
+          description = "Applies only to resources with these tag values"
         }
-        enforce = each.value.policy_type == "deny" ? true : false
-      }
+
+  enforce = lower(each.value.policy_type) == "deny" ? true : false
+}
+      # content {
+      #   condition {
+      #     expression = "(" + join(" || ", [
+      #       for v in each.value.tag_values :
+      #       "resource.matchTag('${each.value.tag_key}', '${v}')"
+      #     ]) + ")"
+      #     title       = "Tag condition"
+      #     description = "Applies only to resources with these tag values"
+      #   }
+      #   # condition {
+      #   #   expression  = "resource.matchTag('${each.value.tag_key}', '${each.value.tag_value}')"
+      #   #   title       = "Tag condition"
+      #   #   description = "Applies only to resources with this tag"
+      #   # }
+      #   enforce = each.value.policy_type == "deny" ? true : false
+      # }
     }
 
     # Default opposite when the tag does NOT match
