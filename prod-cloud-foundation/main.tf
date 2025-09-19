@@ -10,12 +10,12 @@ module "org_policy" {
       tag_key     = "718865262377/env"
       tag_value   = "prod"
     },
-    "compute.disableSerialPortAccess" = {
-      enforce     = false # true → tags ignored
-      policy_type = "deny"
-      tag_key     = "718865262377/env"
-      tag_value   = "prod"
-    },
+    # "compute.managed.disableSerialPortAccess" = {
+    #   enforce     = false # true → tags ignored
+    #   policy_type = "deny"
+    #   tag_key     = "718865262377/env"
+    #   tag_value   = "prod"
+    # },
     "iam.disableServiceAccountKeyUpload" = {
       enforce     = false # true → tags ignored
       policy_type = "deny"
