@@ -62,15 +62,6 @@ module "org_policy_list" {
       tag_key       = "718865262377/env"
       tag_value     = "prod"
     }
-
-    # Deny certain services in prod (else allow all)
-    "iam.allowedPolicyMemberDomains" = {
-      mode          = "allow"
-      values        = ["google.com"]
-      enforce       = false
-      tag_key       = "718865262377/env"
-      tag_value     = "prod"
-    }
   }
 }
 
