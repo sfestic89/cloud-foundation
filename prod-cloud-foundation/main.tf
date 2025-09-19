@@ -108,12 +108,12 @@ module "projects" {
 
   projects = [
     {
-      project_id      = "test-project"
-      name            = "Test Project"
+      project_id      = "demo-prj-tf"
+      name            = "Demo TF Project"
       folder_id       = module.bootstrap_folders.folder_ids["test-fld"]
       billing_account = "01BAAE-738DCF-3581B5"
       labels = {
-        environment = "test"
+        environment = "demo"
         owner       = "sfestic"
       }
       apis = [
