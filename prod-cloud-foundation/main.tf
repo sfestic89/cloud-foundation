@@ -1,41 +1,41 @@
-module "org_policy" {
-  source = "../modules/org-policy/boolean-policy"
+# module "org_policy" {
+#   source = "../modules/org-policy/boolean-policy"
 
-  target_resource = "organizations/718865262377" # or a folder/project if needed
+#   target_resource = "organizations/718865262377" # or a folder/project if needed
 
-  policies = {
-    "compute.requireOsLogin" = {
-      enforce     = false # true → tags ignored
-      policy_type = "deny"
-      tag_key     = "718865262377/env"
-      tag_value   = "prod"
-    },
-    "compute.disableSerialPortAccess" = {
-      enforce     = false # true → tags ignored
-      policy_type = "deny"
-      tag_key     = "718865262377/env"
-      tag_value   = "prod"
-    },
-    "iam.disableServiceAccountKeyUpload" = {
-      enforce     = false # true → tags ignored
-      policy_type = "deny"
-      tag_key     = "718865262377/env"
-      tag_value   = "prod"
-    },
-    "compute.requireShieldedVm" = {
-      enforce     = false
-      policy_type = "deny"
-      tag_key     = "718865262377/env"
-      tag_value   = "prod"
-    },
-    "iam.disableServiceAccountCreation" = {
-      enforce     = false
-      policy_type = "allow"
-      tag_key     = "718865262377/env"
-      tag_value   = "prod"
-    }
-  }
-}
+#   policies = {
+#     "compute.requireOsLogin" = {
+#       enforce     = false # true → tags ignored
+#       policy_type = "deny"
+#       tag_key     = "718865262377/env"
+#       tag_value   = "prod"
+#     },
+#     "compute.disableSerialPortAccess" = {
+#       enforce     = false # true → tags ignored
+#       policy_type = "deny"
+#       tag_key     = "718865262377/env"
+#       tag_value   = "prod"
+#     },
+#     "iam.disableServiceAccountKeyUpload" = {
+#       enforce     = false # true → tags ignored
+#       policy_type = "deny"
+#       tag_key     = "718865262377/env"
+#       tag_value   = "prod"
+#     },
+#     "compute.requireShieldedVm" = {
+#       enforce     = false
+#       policy_type = "deny"
+#       tag_key     = "718865262377/env"
+#       tag_value   = "prod"
+#     },
+#     "iam.disableServiceAccountCreation" = {
+#       enforce     = false
+#       policy_type = "allow"
+#       tag_key     = "718865262377/env"
+#       tag_value   = "prod"
+#     }
+#   }
+# }
 
 module "org_policy_list" {
   source          = "../modules/org-policy/list-constraints"
