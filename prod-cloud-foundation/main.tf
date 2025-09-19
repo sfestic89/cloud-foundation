@@ -77,15 +77,13 @@ module "project_tags" {
   }
 }
 
-# module "bootstrap_folders" {
-#   source = "../modules/folders"
-#   parent = "organizations/718865262377"
-#   folder_names = [
-#     "bootstrap",
-#     "common",
-#     "rearc"
-#   ]
-# }
+module "bootstrap_folders" {
+  source = "../modules/folders"
+  parent = "organizations/718865262377"
+  folder_names = [
+    "test-fld"
+  ]
+}
 # module "folder_iam_bindings" {
 #   source    = "../modules/iam/fld-binding"
 #   folder_id = module.bootstrap_folders.folder_ids["common"]
@@ -112,7 +110,7 @@ module "projects" {
     {
       project_id      = "test-project"
       name            = "Test Project"
-      #folder_id       = module.bootstrap_folders.folder_ids["bootstrap"]
+      folder_id       = module.bootstrap_folders.folder_ids["test-fld"]
       billing_account = "01BAAE-738DCF-3581B5"
       labels = {
         environment = "test"
