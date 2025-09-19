@@ -18,6 +18,7 @@ jobs:
     env:
       TF_IN_AUTOMATION: "true"
       TF_INPUT: "false"
+      TF_CLI_ARGS_apply: "-lock-timeout=5m"
       # Let TF wait for transient locks instead of failing fast
       # Use your billing/quota project to satisfy orgpolicy API quota requirements
       GOOGLE_CLOUD_QUOTA_PROJECT: "ccoe-seed-project"  # <-- set to your quota/billing project ID
