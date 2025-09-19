@@ -105,73 +105,73 @@ module "project_tags" {
 #     ]
 #   }
 # }
-# module "projects" {
-#   source = "../modules/projects"
+module "projects" {
+  source = "../modules/projects"
 
-#   projects = [
-#     {
-#       project_id      = "ccoe-seed-project"
-#       name            = "CCOE Seed Project"
-#       folder_id       = module.bootstrap_folders.folder_ids["bootstrap"]
-#       billing_account = "01BAAE-738DCF-3581B5"
-#       labels = {
-#         environment = "bootstrap"
-#         owner       = "terraform"
-#       }
-#       apis = [
-#         "orgpolicy.googleapis.com",
-#         "serviceusage.googleapis.com",
-#         "cloudbilling.googleapis.com",
-#         "compute.googleapis.com",
-#         "storage.googleapis.com",
-#         "cloudresourcemanager.googleapis.com",
-#         "iamcredentials.googleapis.com",
-#         "iam.googleapis.com"
-#       ]
-#     },
-#     {
-#       project_id      = "ccoi-wif-project"
-#       name            = "Workload Identity Federation"
-#       folder_id       = module.bootstrap_folders.folder_ids["common"]
-#       billing_account = "01BAAE-738DCF-3581B5"
-#       labels = {
-#         env = "common"
-#       }
-#       apis = [
-#         "serviceusage.googleapis.com",
-#         "cloudbilling.googleapis.com",
-#         "compute.googleapis.com",
-#         "storage.googleapis.com",
-#         "cloudresourcemanager.googleapis.com",
-#         "iamcredentials.googleapis.com",
-#         "iam.googleapis.com"
-#       ]
-#     },
-#     {
-#       project_id      = "rearc-quest-project"
-#       name            = "Rearc Quest Project"
-#       folder_id       = module.bootstrap_folders.folder_ids["rearc"]
-#       billing_account = "01BAAE-738DCF-3581B5"
-#       labels = {
-#         environment = "demo"
-#         owner       = "sfestic"
-#       }
-#       apis = [
-#         "serviceusage.googleapis.com",
-#         "compute.googleapis.com",
-#         "storage.googleapis.com",
-#         "cloudresourcemanager.googleapis.com",
-#         "iamcredentials.googleapis.com",
-#         "iam.googleapis.com",
-#         "artifactregistry.googleapis.com",
-#         "cloudbuild.googleapis.com",
-#         "logging.googleapis.com",
-#         "monitoring.googleapis.com",
-#         "run.googleapis.com"
-#       ]
-#     }
-#   ]
-# }
+  projects = [
+    {
+      project_id      = "ccoe-seed-project"
+      name            = "CCOE Seed Project"
+      folder_id       = module.bootstrap_folders.folder_ids["bootstrap"]
+      billing_account = "01BAAE-738DCF-3581B5"
+      labels = {
+        environment = "bootstrap"
+        owner       = "terraform"
+      }
+      apis = [
+        "orgpolicy.googleapis.com",
+        "serviceusage.googleapis.com",
+        "cloudbilling.googleapis.com",
+        "compute.googleapis.com",
+        "storage.googleapis.com",
+        "cloudresourcemanager.googleapis.com",
+        "iamcredentials.googleapis.com",
+        "iam.googleapis.com"
+      ]
+    },
+    {
+      project_id      = "ccoi-wif-project"
+      name            = "Workload Identity Federation"
+      folder_id       = module.bootstrap_folders.folder_ids["common"]
+      billing_account = "01BAAE-738DCF-3581B5"
+      labels = {
+        env = "common"
+      }
+      apis = [
+        "serviceusage.googleapis.com",
+        "cloudbilling.googleapis.com",
+        "compute.googleapis.com",
+        "storage.googleapis.com",
+        "cloudresourcemanager.googleapis.com",
+        "iamcredentials.googleapis.com",
+        "iam.googleapis.com"
+      ]
+    },
+    {
+      project_id      = "rearc-quest-project"
+      name            = "Rearc Quest Project"
+      folder_id       = module.bootstrap_folders.folder_ids["rearc"]
+      billing_account = "01BAAE-738DCF-3581B5"
+      labels = {
+        environment = "demo"
+        owner       = "sfestic"
+      }
+      apis = [
+        "serviceusage.googleapis.com",
+        "compute.googleapis.com",
+        "storage.googleapis.com",
+        "cloudresourcemanager.googleapis.com",
+        "iamcredentials.googleapis.com",
+        "iam.googleapis.com",
+        "artifactregistry.googleapis.com",
+        "cloudbuild.googleapis.com",
+        "logging.googleapis.com",
+        "monitoring.googleapis.com",
+        "run.googleapis.com"
+      ]
+    }
+  ]
+}
 # module "state_bucket" {
 #   source = "../modules/cloud-storage" # adjust the path
 
