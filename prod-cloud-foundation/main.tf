@@ -60,7 +60,7 @@ module "org_policy_list" {
       values        = ["projects/debian-cloud", "projects/ubuntu-os-cloud"]
       enforce       = false
       tag_key       = module.project_tags.tag_key_ids["env-new"]
-      tag_value     = module.project_tags.tag_value_ids["dev"]
+      tag_value     = module.project_tags.tag_value_ids_by_key["env-new"]["dev"]
     }
   }
 }
