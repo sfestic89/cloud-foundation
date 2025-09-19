@@ -12,7 +12,7 @@ locals {
   }
 
 }
-resource "google_project" "this" {
+resource "google_project" "gcp_project" {
   for_each = { for p in var.projects : p.project_id => p }
 
   project_id      = each.value.project_id
@@ -27,7 +27,7 @@ resource "google_project_service" "gcp_services" {
   project = each.value.project_id
   service = each.value.api
 
-  depends_on = [google_project.this]
+  depends_on = [google_project.gcp_project]
 }
 
 
